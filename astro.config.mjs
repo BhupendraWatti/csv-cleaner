@@ -7,6 +7,8 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://csvcleaner.app',
+  // Keep generated pages readable when inspecting production output.
+  compressHTML: false,
 
   vite: {
     plugins: [tailwindcss()]
