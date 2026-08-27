@@ -115,7 +115,7 @@ function removeDuplicates(rows: string[][]): { rows: string[][]; removed: number
   const seen = new Set<string>();
   const initialCount = rows.length;
   const cleanedRows = rows.filter(row => {
-    const key = row.join('|||');
+    const key = JSON.stringify(row);
     if (seen.has(key)) {
       return false;
     }
@@ -157,7 +157,7 @@ export function formatHeaderCase(headers: string[], format: HeaderCaseOption): s
       case 'lowercase':
         return clean.toLowerCase();
       case 'Title Case':
-        return clean.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+        return clean.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase());
       default:
         return clean;
     }
@@ -186,7 +186,8 @@ function imputeMissingValues(rows: string[][], replacement: string): { rows: str
   let modified = 0;
   const cleanedRows = rows.map(row =>
     row.map(cell => {
-      if (cell === '' || cell.toLowerCase() === 'null' || cell.toLowerCase() === 'undefined' || cell === 'N/A') {
+      const lower = cell.toLowerCase();
+      if (cell === '' || lower === 'null' || lower === 'undefined' || lower === 'n/a' || lower === 'na' || lower === 'none') {
         modified++;
         return replacement;
       }
@@ -210,9 +211,10 @@ function applyFindAndReplace(rows: string[][], config: FindAndReplaceConfig): { 
   const cleanedRows = rows.map(row =>
     row.map((cell, colIndex) => {
       if (config.columnIndex !== undefined && config.columnIndex !== colIndex) return cell;
-      if (regex.test(cell)) {
+      const newCell = cell.replace(regex, config.replace);
+      if (newCell !== cell) {
         modified++;
-        return cell.replace(regex, config.replace);
+        return newCell;
       }
       return cell;
     })

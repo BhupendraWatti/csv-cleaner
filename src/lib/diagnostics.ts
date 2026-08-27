@@ -90,7 +90,7 @@ function detectDuplicates(parsed: ParsedCSV): DiagnosticIssue | null {
   const affectedRows: number[] = [];
 
   parsed.rows.forEach((row, index) => {
-    const key = row.join('|||');
+    const key = JSON.stringify(row);
     if (seen.has(key)) {
       affectedRows.push(index);
     } else {
@@ -270,7 +270,8 @@ function detectMissingValues(parsed: ParsedCSV): DiagnosticIssue | null {
   let count = 0;
   parsed.rows.forEach(row => {
     row.forEach(cell => {
-      if (cell === '' || cell.toLowerCase() === 'null' || cell.toLowerCase() === 'undefined' || cell === 'N/A') {
+      const lower = cell.toLowerCase();
+      if (cell === '' || lower === 'null' || lower === 'undefined' || lower === 'n/a' || lower === 'na' || lower === 'none') {
         count++;
       }
     });
