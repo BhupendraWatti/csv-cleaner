@@ -2,14 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import CSVCleaner from '../components/CSVCleaner';
+import ErrorBoundary from '../components/csv/ErrorBoundary';
 ---
 
-<Layout title="CSV Cleaner — Clean your data locally">
+<Layout title="CSV Cleaner Workspace — In-Browser Diagnostic & Cleaning Tool">
 	<Navbar activePage="home" />
 
 	<main class="flex-grow pt-20 bg-[#f4fafd] min-h-screen">
 		<section class="max-w-7xl mx-auto px-6 py-6 space-y-8">
-			<CSVCleaner client:only="react" />
+			<h1 class="sr-only">CSV Cleaning Workspace</h1>
+			<ErrorBoundary client:only="react">
+				<CSVCleaner client:only="react" />
+			</ErrorBoundary>
 		</section>
 	</main>
 </Layout>
+

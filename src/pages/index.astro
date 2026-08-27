@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import CSVCleaner from '../components/CSVCleaner';
+import ErrorBoundary from '../components/csv/ErrorBoundary';
 ---
 
 <Layout title="CSV Cleaner — Messy CSV? Clean it right here.">
@@ -23,15 +24,18 @@ import CSVCleaner from '../components/CSVCleaner';
 				</h1>
 
 				<p class="text-base sm:text-lg text-[#414844] font-body leading-relaxed max-w-xl mx-auto">
-					Upload your CSV file below or test with a sample dataset. Diagnose 9+ error types, customize rules, and export clean data in seconds.
+					Upload your CSV file below or test with a sample dataset. Diagnose 12+ error types, customize rules, and export clean data in seconds.
 				</p>
 			</div>
 
 			<!-- THE UNIFIED TOOL WORKSPACE (MAIN APP) -->
 			<div id="workspace-container" class="scroll-mt-24">
-				<CSVCleaner client:only="react" />
+				<ErrorBoundary client:only="react">
+					<CSVCleaner client:only="react" />
+				</ErrorBoundary>
 			</div>
 		</section>
+
 
 		<!-- BENTO / FEATURE SHOWCASE BELOW THE TOOL -->
 		<section class="max-w-7xl mx-auto px-6 py-16 border-t border-[#c1c8c2]/60 mt-12">

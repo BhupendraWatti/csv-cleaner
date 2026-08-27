@@ -1,4 +1,4 @@
-import type { ParsedCSV, DiagnosticIssue, CleanedResult, HeaderCaseOption, FindAndReplaceConfig } from './types';
+import type { ParsedCSV, DiagnosticIssue, CleanedResult, QuarantinedRow, HeaderCaseOption, FindAndReplaceConfig } from './types';
 
 export function cleanCSV(
   parsed: ParsedCSV,
@@ -11,6 +11,7 @@ export function cleanCSV(
 ): CleanedResult {
   let cleanedHeaders = [...parsed.headers];
   let cleanedRows = [...parsed.rows.map(row => [...row])];
+  const quarantinedRows: QuarantinedRow[] = [];
   let rowsRemoved = 0;
   let cellsModified = 0;
 
@@ -24,48 +25,64 @@ export function cleanCSV(
     cellsModified += result.modified;
   }
 
-  // 2. Remove empty rows (safe)
+  // 2. Clear whitespace-only cells (safe)
+  if (issuesByType.has('whitespace-only')) {
+    const result = clearWhitespaceOnly(cleanedRows);
+    cleanedRows = result.rows;
+    cellsModified += result.modified;
+  }
+
+  // 3. Remove empty rows (safe)
   if (issuesByType.has('empty-rows')) {
     const result = removeEmptyRows(cleanedRows);
     cleanedRows = result.rows;
     rowsRemoved += result.removed;
   }
 
-  // 3. Remove duplicate rows (needs review)
+  // 4. Remove duplicate rows (review recommended)
   if (issuesByType.has('duplicate-rows')) {
     const result = removeDuplicates(cleanedRows);
     cleanedRows = result.rows;
     rowsRemoved += result.removed;
   }
 
-  // 4. Fix malformed rows (needs review)
+  // 5. Fix malformed rows & quarantine extra columns (potentially destructive if truncated)
   if (issuesByType.has('malformed-rows')) {
-    const result = fixMalformedRows(cleanedRows, parsed.columnCount);
+    const result = fixAndQuarantineMalformedRows(cleanedRows, parsed.columnCount);
     cleanedRows = result.rows;
+    quarantinedRows.push(...result.quarantined);
     cellsModified += result.modified;
+    rowsRemoved += result.quarantined.length;
   }
 
-  // 5. Clean header casing (optional / issue-based)
+  // 6. Clean header casing (optional / issue-based)
   if (issuesByType.has('header-case') || options?.headerCase) {
     const caseFormat = options?.headerCase || 'snake_case';
     cleanedHeaders = formatHeaderCase(cleanedHeaders, caseFormat);
   }
 
-  // 6. Currency formatting strip
+  // 7. Currency formatting strip (review recommended)
   if (issuesByType.has('unformatted-currency')) {
     const result = stripCurrencySymbols(cleanedRows);
     cleanedRows = result.rows;
     cellsModified += result.modified;
   }
 
-  // 7. Impute missing values
+  // 8. Escape formula injection risks (review recommended)
+  if (issuesByType.has('formula-injection')) {
+    const result = escapeFormulaInjection(cleanedRows);
+    cleanedRows = result.rows;
+    cellsModified += result.modified;
+  }
+
+  // 9. Impute missing values (review recommended)
   if (issuesByType.has('missing-values') && options?.missingValueReplacement !== undefined) {
     const result = imputeMissingValues(cleanedRows, options.missingValueReplacement);
     cleanedRows = result.rows;
     cellsModified += result.modified;
   }
 
-  // 8. Find and Replace transform
+  // 10. Find and Replace transform
   if (options?.findReplace && options.findReplace.search) {
     const result = applyFindAndReplace(cleanedRows, options.findReplace);
     cleanedRows = result.rows;
@@ -75,6 +92,7 @@ export function cleanCSV(
   return {
     cleanedHeaders,
     cleanedRows,
+    quarantinedRows,
     rowsRemoved,
     cellsModified,
     report: {
@@ -96,8 +114,25 @@ function trimWhitespace(rows: string[][]): { rows: string[][]; modified: number 
   const cleanedRows = rows.map(row =>
     row.map(cell => {
       const trimmed = cell.trim();
-      if (trimmed !== cell) modified++;
-      return trimmed;
+      if (trimmed !== cell && trimmed !== '') {
+        modified++;
+        return trimmed;
+      }
+      return cell;
+    })
+  );
+  return { rows: cleanedRows, modified };
+}
+
+function clearWhitespaceOnly(rows: string[][]): { rows: string[][]; modified: number } {
+  let modified = 0;
+  const cleanedRows = rows.map(row =>
+    row.map(cell => {
+      if (cell.length > 0 && cell.trim() === '') {
+        modified++;
+        return '';
+      }
+      return cell;
     })
   );
   return { rows: cleanedRows, modified };
@@ -125,19 +160,32 @@ function removeDuplicates(rows: string[][]): { rows: string[][]; removed: number
   return { rows: cleanedRows, removed: initialCount - cleanedRows.length };
 }
 
-function fixMalformedRows(rows: string[][], expectedColumns: number): { rows: string[][]; modified: number } {
+function fixAndQuarantineMalformedRows(
+  rows: string[][],
+  expectedColumns: number
+): { rows: string[][]; quarantined: QuarantinedRow[]; modified: number } {
   let modified = 0;
-  const cleanedRows = rows.map(row => {
-    if (row.length !== expectedColumns) {
+  const quarantined: QuarantinedRow[] = [];
+  const validRows: string[][] = [];
+
+  rows.forEach((row, originalIndex) => {
+    if (row.length === expectedColumns) {
+      validRows.push(row);
+    } else if (row.length < expectedColumns) {
+      // Safe modification: pad missing columns with empty string
       modified++;
-      if (row.length < expectedColumns) {
-        return [...row, ...Array(expectedColumns - row.length).fill('')];
-      }
-      return row.slice(0, expectedColumns);
+      validRows.push([...row, ...Array(expectedColumns - row.length).fill('')]);
+    } else {
+      // Extra columns detected: quarantine row to avoid silent data truncation
+      quarantined.push({
+        originalIndex,
+        row,
+        reason: `Row has ${row.length} columns (expected ${expectedColumns}). Quarantined to prevent data loss.`,
+      });
     }
-    return row;
   });
-  return { rows: cleanedRows, modified };
+
+  return { rows: validRows, quarantined, modified };
 }
 
 export function formatHeaderCase(headers: string[], format: HeaderCaseOption): string[] {
@@ -174,6 +222,23 @@ function stripCurrencySymbols(rows: string[][]): { rows: string[][]; modified: n
       if (match) {
         modified++;
         return match[1].replace(/,/g, '');
+      }
+      return cell;
+    })
+  );
+
+  return { rows: cleanedRows, modified };
+}
+
+function escapeFormulaInjection(rows: string[][]): { rows: string[][]; modified: number } {
+  let modified = 0;
+  const formulaRegex = /^\s*([=+\-@|])(SUM|CMD|EVAL|DDE|HYPERLINK|SYSTEM|\d|\w|\.|\()/i;
+
+  const cleanedRows = rows.map(row =>
+    row.map(cell => {
+      if (formulaRegex.test(cell) && !cell.startsWith("'")) {
+        modified++;
+        return `'${cell}`;
       }
       return cell;
     })
@@ -239,3 +304,4 @@ Sarah,sarah@acme.co,Acme Corp,Active,$1,250.00
   Alex,alex@global.org ,Global Org,Active,$920.00
 David,david@design.io,Design IO,Active,$3,400.00`;
 }
+

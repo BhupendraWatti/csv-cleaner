@@ -1,0 +1,5 @@
+id,user,salary,command
+1,John,50000,=SUM(A1:A10)
+2,Malicious,100000,+cmd|'/C calc'!A0
+3,Normal,75000,-100
+4,Admin,90000,@cmd
