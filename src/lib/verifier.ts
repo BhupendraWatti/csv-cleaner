@@ -45,8 +45,28 @@ export function verifyCleanedCSV(
     // 3. Validate column count
     const expectedColCount = cleanedResult.cleanedHeaders.length;
     const actualColCount = reParsed.columnCount;
+    const sourceMalformedRows = cleanedResult.cleanedRows
+      .map((row, index) => ({ row, index }))
+      .filter(({ row }) => row.length !== expectedColCount);
+    const malformedRows = reParsed.rows
+      .map((row, index) => ({ row, index }))
+      .filter(({ row }) => row.length !== expectedColCount);
+
     if (actualColCount !== expectedColCount) {
       messages.push(`❌ Column count mismatch: expected ${expectedColCount}, got ${actualColCount}.`);
+    } else if (sourceMalformedRows.length > 0) {
+      const rowNumbers = sourceMalformedRows.map(({ index }) => index + 1).join(', ');
+      messages.push(
+        `❌ Export blocked: ${sourceMalformedRows.length} cleaned row${sourceMalformedRows.length === 1 ? '' : 's'} ` +
+        `do not contain ${expectedColCount} columns (row${sourceMalformedRows.length === 1 ? '' : 's'} ${rowNumbers}). ` +
+        'Serializing this dataset would silently discard or misalign cell values.'
+      );
+    } else if (malformedRows.length > 0) {
+      const rowNumbers = malformedRows.map(({ index }) => index + 1).join(', ');
+      messages.push(
+        `❌ Structural mismatch: ${malformedRows.length} data row${malformedRows.length === 1 ? '' : 's'} ` +
+        `do not contain ${expectedColCount} columns (row${malformedRows.length === 1 ? '' : 's'} ${rowNumbers}).`
+      );
     } else {
       messages.push(`✅ Header structure verified: ${actualColCount} columns aligned.`);
     }
@@ -64,10 +84,19 @@ export function verifyCleanedCSV(
       messages.push(`⚠️ ${cleanedResult.quarantinedRows.length} rows quarantined to prevent silent truncation.`);
     }
 
-    const isValid = actualRowCount === expectedRowCount && actualColCount === expectedColCount;
+    const isValid =
+      actualRowCount === expectedRowCount &&
+      actualColCount === expectedColCount &&
+      sourceMalformedRows.length === 0 &&
+      malformedRows.length === 0;
 
     return {
       isValid,
+      error: isValid
+        ? undefined
+        : sourceMalformedRows.length > 0 || malformedRows.length > 0
+          ? 'Verification Failed: One or more rows do not match the header column count.'
+          : 'Verification Failed: Generated output does not match the expected structure.',
       beforeStats: {
         rowCount: originalParsed.rowCount,
         columnCount: originalParsed.columnCount,
