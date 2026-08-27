@@ -403,7 +403,7 @@ export default function CSVCleaner() {
             </aside>
 
             {/* MAIN DATA & EXPORT */}
-            <main className="lg:col-span-8 flex flex-col gap-6">
+            <section className="lg:col-span-8 flex flex-col gap-6" aria-label="CSV preview and export">
               <DataTable
                 viewMode={viewMode}
                 onViewModeChange={setViewMode}
@@ -430,7 +430,7 @@ export default function CSVCleaner() {
                 verificationReport={verificationReport}
                 isProcessing={isProcessing}
               />
-            </main>
+            </section>
           </div>
 
           {/* MODALS */}
