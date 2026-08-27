@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Success — CSV Cleaner">
+	<!-- Top Navigation Bar -->
+	<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-3 bg-[#f4fafd]/90 backdrop-blur-md border-b border-[#c1c8c2]">
+		<div class="flex items-center gap-6">
+			<a href="/" class="flex items-center gap-2 text-[#012d1d] font-bold text-xl font-display">
+				<span class="material-symbols-outlined filled text-[#012d1d] text-2xl">cleaning_services</span>
+				<span>CSV Cleaner</span>
+			</a>
+			<nav class="hidden md:flex items-center gap-5">
+				<a href="/how-it-works" class="text-[#414844] hover:text-[#012d1d] transition-colors text-xs font-semibold uppercase tracking-wider">How It Works</a>
+				<a href="/features" class="text-[#414844] hover:text-[#012d1d] transition-colors text-xs font-semibold uppercase tracking-wider">Features</a>
+				<a href="/upload" class="text-[#414844] hover:text-[#012d1d] transition-colors text-xs font-semibold uppercase tracking-wider">Upload</a>
+				<a href="/workspace" class="text-[#414844] hover:text-[#012d1d] transition-colors text-xs font-semibold uppercase tracking-wider">Workspace</a>
+			</nav>
+		</div>
+
+		<div class="flex items-center gap-4">
+			<a href="/upload" class="bg-[#012d1d] text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-lg hover:bg-[#1b4332] transition-colors hidden sm:inline-block shadow-xs">
+				Clean Another CSV
+			</a>
+		</div>
+	</header>
+
+	<main class="flex-grow pt-20 flex items-center justify-center min-h-[calc(100vh-140px)]">
+		<div class="max-w-md w-full px-6 py-12 text-center space-y-6">
+			<div class="w-20 h-20 rounded-full bg-[#c1ecd4] text-[#012d1d] mx-auto flex items-center justify-center shadow-ambient">
+				<span class="material-symbols-outlined text-5xl">check_circle</span>
+			</div>
+
+			<div class="space-y-2">
+				<h1 class="text-3xl font-extrabold text-[#012d1d] font-display">Data Cleaned Successfully!</h1>
+				<p class="text-xs text-[#414844]">Your CSV file has been processed locally and is ready for export.</p>
+			</div>
+
+			<div class="bg-white rounded-2xl p-6 border border-[#c1c8c2] shadow-ambient space-y-3 font-mono text-xs">
+				<div class="flex justify-between items-center text-[#414844]">
+					<span>Final Health Score:</span>
+					<span class="font-bold text-[#012d1d] text-sm">100 / 100</span>
+				</div>
+				<div class="flex justify-between items-center text-[#414844]">
+					<span>Fixes Executed:</span>
+					<span class="font-bold text-[#161d1f]">427</span>
+				</div>
+				<div class="flex justify-between items-center text-[#414844]">
+					<span>Execution Mode:</span>
+					<span class="font-semibold text-[#002114] bg-[#c1ecd4] px-2 py-0.5 rounded">100% In-Browser</span>
+				</div>
+			</div>
+
+			<div class="flex flex-col gap-3 pt-2">
+				<a href="/" download="cleaned_data.csv" class="bg-[#012d1d] text-white font-semibold text-xs uppercase tracking-wider py-3.5 rounded-lg hover:bg-[#1b4332] transition-all shadow-ambient flex items-center justify-center gap-2">
+					<span class="material-symbols-outlined text-lg">download</span>
+					Download Cleaned CSV
+				</a>
+				<a href="/upload" class="bg-[#d8e2dc] text-[#012d1d] font-semibold text-xs uppercase tracking-wider py-3.5 rounded-lg hover:bg-[#dde4e6] border border-[#c1c8c2]/50 transition-colors">
+					Clean Another File
+				</a>
+			</div>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<footer class="w-full py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-white border-t border-[#c1c8c2]">
+		<div class="text-[#012d1d] font-bold font-display text-lg flex items-center gap-2">
+			<span class="material-symbols-outlined filled text-xl">cleaning_services</span>
+			<span>CSV Cleaner</span>
+		</div>
+		<div class="text-xs text-[#414844] text-center">
+			© 2026 CSV Cleaner. Privacy First. Runs locally in your browser.
+		</div>
+		<nav class="flex gap-4 text-xs font-semibold uppercase tracking-wider text-[#414844]">
+			<a href="/features" class="hover:text-[#012d1d] transition-colors">Features</a>
+			<a href="/how-it-works" class="hover:text-[#012d1d] transition-colors">How It Works</a>
+			<a href="/upload" class="hover:text-[#012d1d] transition-colors">Upload</a>
+		</nav>
+	</footer>
+</Layout>

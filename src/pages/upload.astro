@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+---
+
+<Layout title="Upload — CSV Cleaner">
+	<Navbar activePage="upload" showHealthBadge={false} />
+
+	<main class="flex-grow pt-20 flex items-center justify-center min-h-[calc(100vh-140px)]">
+		<div class="max-w-3xl w-full px-6 py-12 text-center space-y-8">
+			<header class="space-y-3">
+				<h1 class="text-4xl sm:text-5xl font-extrabold text-[#012d1d] font-display">Bring your CSV</h1>
+				<p class="text-base text-[#414844] max-w-lg mx-auto">
+					Clean, format, and prepare your data instantly. No servers. No hassle.
+				</p>
+				<div class="inline-flex items-center gap-1.5 bg-[#dde4e6] px-3 py-1 rounded-full text-[#012d1d] text-xs font-semibold">
+					<span class="material-symbols-outlined text-sm">lock</span>
+					<span>Runs locally in your browser</span>
+				</div>
+			</header>
+
+			<!-- Drag and Drop Area -->
+			<div id="upload-canvas-dropzone" class="relative group cursor-pointer transition-all duration-300">
+				<input type="file" id="upload-file-input" accept=".csv,text/csv" class="hidden" />
+				<div class="absolute inset-0 bg-[#012d1d]/5 rounded-2xl border-2 border-dashed border-[#012d1d]/30 group-hover:border-[#012d1d] transition-all"></div>
+				<div class="relative bg-white/90 backdrop-blur-sm rounded-2xl p-12 shadow-ambient flex flex-col items-center justify-center gap-6 border border-[#c1c8c2]">
+					<div class="w-28 h-28 relative text-[#012d1d]/40 group-hover:text-[#012d1d] transition-colors">
+						<span class="material-symbols-outlined text-8xl absolute inset-0 flex items-center justify-center group-hover:scale-105 transition-transform" style="font-variation-settings: 'FILL' 1;">
+							description
+						</span>
+						<span class="material-symbols-outlined text-3xl absolute bottom-0 right-0 bg-white rounded-full p-1 shadow-md group-hover:rotate-12 transition-transform text-[#012d1d]">
+							file_download
+						</span>
+					</div>
+
+					<div class="space-y-1">
+						<p class="text-2xl font-bold text-[#161d1f] font-display">Drag & Drop your file here</p>
+						<p class="text-xs text-[#717973]">up to 50MB supported</p>
+					</div>
+
+					<div class="flex items-center gap-4">
+						<button id="upload-browse-btn" class="bg-[#012d1d] text-white px-6 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider hover:bg-[#1b4332] shadow-xs transition-all">
+							Browse Files
+						</button>
+						<span class="text-xs text-[#717973]">or</span>
+						<a href="/workspace" class="bg-[#d8e2dc] text-[#012d1d] px-6 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider hover:bg-[#dde4e6] border border-[#c1c8c2]/50 transition-colors inline-block">
+							Load Demo Workspace
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<footer class="w-full py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-white border-t border-[#c1c8c2]">
+		<div class="text-[#012d1d] font-bold font-display text-lg flex items-center gap-2">
+			<span class="material-symbols-outlined filled text-xl">cleaning_services</span>
+			<span>CSV Cleaner</span>
+		</div>
+		<div class="text-xs text-[#414844] text-center">
+			© 2026 CSV Cleaner. Privacy First. Runs locally in your browser.
+		</div>
+		<nav class="flex gap-4 text-xs font-semibold uppercase tracking-wider text-[#414844]">
+			<a href="/features" class="hover:text-[#012d1d] transition-colors">Features</a>
+			<a href="/how-it-works" class="hover:text-[#012d1d] transition-colors">How It Works</a>
+			<a href="/upload" class="hover:text-[#012d1d] transition-colors">Upload</a>
+		</nav>
+	</footer>
+
+	<script is:inline>
+		document.addEventListener('DOMContentLoaded', () => {
+			const fileInput = document.getElementById('upload-file-input');
+			const browseBtn = document.getElementById('upload-browse-btn');
+			const dropzone = document.getElementById('upload-canvas-dropzone');
+
+			browseBtn?.addEventListener('click', (e) => {
+				e.stopPropagation();
+				fileInput?.click();
+			});
+
+			dropzone?.addEventListener('click', () => {
+				fileInput?.click();
+			});
+
+			fileInput?.addEventListener('change', (e) => {
+				const file = e.target.files[0];
+				if (file) {
+					window.location.href = '/workspace';
+				}
+			});
+		});
+	</script>
+</Layout>

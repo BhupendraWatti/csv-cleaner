@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary: #012d1d;
+    --color-primary-container: #1b4332;
+    --color-primary-fixed: #c1ecd4;
+    --color-primary-fixed-dim: #a5d0b9;
+    --color-on-primary: #ffffff;
+    --color-on-primary-container: #86af99;
+    --color-on-primary-fixed: #002114;
+    --color-on-primary-fixed-variant: #274e3d;
+
+    --color-surface: #f4fafd;
+    --color-surface-dim: #d4dbdd;
+    --color-surface-bright: #f4fafd;
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-container-low: #eef5f7;
+    --color-surface-container: #e8eff1;
+    --color-surface-container-high: #e2e9ec;
+    --color-surface-container-highest: #dde4e6;
+    --color-surface-variant: #dde4e6;
+    --color-on-surface: #161d1f;
+    --color-on-surface-variant: #414844;
+    --color-inverse-surface: #2b3234;
+    --color-inverse-on-surface: #ebf2f4;
+
+    --color-secondary: #57615c;
+    --color-secondary-container: #d8e2dc;
+    --color-on-secondary: #ffffff;
+    --color-on-secondary-container: #5b6560;
+    --color-secondary-fixed: #dbe5df;
+    --color-secondary-fixed-dim: #bfc9c3;
+    --color-on-secondary-fixed: #151d1a;
+    --color-on-secondary-fixed-variant: #3f4945;
+
+    --color-tertiary: #3f1d00;
+    --color-tertiary-container: #5f2f00;
+    --color-on-tertiary: #ffffff;
+    --color-on-tertiary-container: #e39454;
+    --color-tertiary-fixed: #ffdcc4;
+    --color-tertiary-fixed-dim: #ffb780;
+    --color-on-tertiary-fixed: #2f1400;
+    --color-on-tertiary-fixed-variant: #6f3800;
+
+    --color-error: #ba1a1a;
+    --color-error-container: #ffdad6;
+    --color-on-error: #ffffff;
+    --color-on-error-container: #93000a;
+
+    --color-outline: #717973;
+    --color-outline-variant: #c1c8c2;
+    --color-background: #f4fafd;
+    --color-on-background: #161d1f;
+  }
+}
+
+/* Material Symbols Icon Configuration */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Custom Shadow & Animations */
+.shadow-ambient {
+  box-shadow: 0 4px 20px rgba(27, 67, 50, 0.06);
+}
+
+@keyframes drawCircle {
+  0% { stroke-dasharray: 0, 100; }
+  100% { stroke-dasharray: 82, 100; }
+}
+
+.circular-chart {
+  animation: drawCircle 1.5s ease-out forwards;
+}
+
+@keyframes settleIn {
+  0% { transform: translateY(-20px) scale(0.98); opacity: 0; }
+  50% { transform: translateY(5px) scale(1.01); opacity: 0.8; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.settle-animate {
+  animation: settleIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Font Family Helper Utilities */
+.font-display {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+.font-body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
