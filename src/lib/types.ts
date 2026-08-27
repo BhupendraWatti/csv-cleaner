@@ -19,7 +19,11 @@ export type IssueType =
   | 'empty-rows'
   | 'empty-columns'
   | 'malformed-rows'
-  | 'header-inconsistency';
+  | 'header-inconsistency'
+  | 'header-case'
+  | 'invalid-dates'
+  | 'unformatted-currency'
+  | 'missing-values';
 
 export interface DiagnosticIssue {
   id: string;
@@ -46,8 +50,21 @@ export interface DiagnosticReport {
 }
 
 export interface CleanedResult {
+  cleanedHeaders: string[];
   cleanedRows: string[][];
   rowsRemoved: number;
   cellsModified: number;
   report: DiagnosticReport;
 }
+
+export type HeaderCaseOption = 'snake_case' | 'camelCase' | 'UPPERCASE' | 'Title Case' | 'lowercase';
+
+export interface FindAndReplaceConfig {
+  search: string;
+  replace: string;
+  isRegex: boolean;
+  matchCase: boolean;
+  columnIndex?: number; // undefined means all columns
+}
+
+export type ExportFormat = 'csv' | 'tsv' | 'json' | 'xlsx';

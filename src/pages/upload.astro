@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar.astro';
 <Layout title="Upload — CSV Cleaner">
 	<Navbar activePage="upload" showHealthBadge={false} />
 
-	<main class="flex-grow pt-20 flex items-center justify-center min-h-[calc(100vh-140px)]">
+	<main class="flex-grow pt-20 flex items-center justify-center min-h-[calc(100vh-140px)] bg-[#f4fafd]">
 		<div class="max-w-3xl w-full px-6 py-12 text-center space-y-8">
 			<header class="space-y-3">
 				<h1 class="text-4xl sm:text-5xl font-extrabold text-[#012d1d] font-display">Bring your CSV</h1>
@@ -15,13 +15,13 @@ import Navbar from '../components/Navbar.astro';
 				</p>
 				<div class="inline-flex items-center gap-1.5 bg-[#dde4e6] px-3 py-1 rounded-full text-[#012d1d] text-xs font-semibold">
 					<span class="material-symbols-outlined text-sm">lock</span>
-					<span>Runs locally in your browser</span>
+					<span>Runs 100% locally in your browser</span>
 				</div>
 			</header>
 
 			<!-- Drag and Drop Area -->
 			<div id="upload-canvas-dropzone" class="relative group cursor-pointer transition-all duration-300">
-				<input type="file" id="upload-file-input" accept=".csv,text/csv" class="hidden" />
+				<input type="file" id="upload-file-input" accept=".csv,.tsv,.txt" class="hidden" />
 				<div class="absolute inset-0 bg-[#012d1d]/5 rounded-2xl border-2 border-dashed border-[#012d1d]/30 group-hover:border-[#012d1d] transition-all"></div>
 				<div class="relative bg-white/90 backdrop-blur-sm rounded-2xl p-12 shadow-ambient flex flex-col items-center justify-center gap-6 border border-[#c1c8c2]">
 					<div class="w-28 h-28 relative text-[#012d1d]/40 group-hover:text-[#012d1d] transition-colors">
@@ -34,17 +34,17 @@ import Navbar from '../components/Navbar.astro';
 					</div>
 
 					<div class="space-y-1">
-						<p class="text-2xl font-bold text-[#161d1f] font-display">Drag & Drop your file here</p>
-						<p class="text-xs text-[#717973]">up to 50MB supported</p>
+						<p class="text-2xl font-bold text-[#161d1f] font-display">Drag & Drop your CSV file here</p>
+						<p class="text-xs text-[#717973]">CSV, TSV, or TXT up to 25MB supported</p>
 					</div>
 
-					<div class="flex items-center gap-4">
+					<div class="flex flex-wrap items-center justify-center gap-4">
 						<button id="upload-browse-btn" class="bg-[#012d1d] text-white px-6 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider hover:bg-[#1b4332] shadow-xs transition-all">
 							Browse Files
 						</button>
 						<span class="text-xs text-[#717973]">or</span>
 						<a href="/workspace" class="bg-[#d8e2dc] text-[#012d1d] px-6 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider hover:bg-[#dde4e6] border border-[#c1c8c2]/50 transition-colors inline-block">
-							Load Demo Workspace
+							Open Workspace
 						</a>
 					</div>
 				</div>
@@ -68,6 +68,7 @@ import Navbar from '../components/Navbar.astro';
 		</nav>
 	</footer>
 
+	<script is:inline src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 	<script is:inline>
 		document.addEventListener('DOMContentLoaded', () => {
 			const fileInput = document.getElementById('upload-file-input');
@@ -85,10 +86,35 @@ import Navbar from '../components/Navbar.astro';
 
 			fileInput?.addEventListener('change', (e) => {
 				const file = e.target.files[0];
-				if (file) {
+				if (file) handleFile(file);
+			});
+
+			function handleFile(file) {
+				if (window.Papa) {
+					window.Papa.parse(file, {
+						complete: (results) => {
+							const rows = results.data;
+							if (!rows || rows.length === 0) return;
+							const headers = rows[0] || [];
+							const dataRows = rows.slice(1);
+							const payload = {
+								raw: '',
+								rows: dataRows,
+								headers: headers,
+								delimiter: results.meta.delimiter || ',',
+								rowCount: dataRows.length,
+								columnCount: headers.length,
+								fileName: file.name,
+								fileSize: file.size
+							};
+							sessionStorage.setItem('csv_cleaner_active_session', JSON.stringify(payload));
+							window.location.href = '/workspace';
+						}
+					});
+				} else {
 					window.location.href = '/workspace';
 				}
-			});
+			}
 		});
 	</script>
 </Layout>

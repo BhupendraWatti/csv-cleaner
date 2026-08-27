@@ -1,14 +1,19 @@
-import type { ParsedCSV, DiagnosticIssue, CleanedResult } from './types';
+import type { ParsedCSV, DiagnosticIssue, CleanedResult, HeaderCaseOption, FindAndReplaceConfig } from './types';
 
 export function cleanCSV(
   parsed: ParsedCSV,
-  issuesToFix: DiagnosticIssue[]
+  issuesToFix: DiagnosticIssue[],
+  options?: {
+    headerCase?: HeaderCaseOption;
+    findReplace?: FindAndReplaceConfig;
+    missingValueReplacement?: string;
+  }
 ): CleanedResult {
+  let cleanedHeaders = [...parsed.headers];
   let cleanedRows = [...parsed.rows.map(row => [...row])];
   let rowsRemoved = 0;
   let cellsModified = 0;
 
-  // Apply fixes in specific order
   const issuesByType = new Map<string, DiagnosticIssue>();
   issuesToFix.forEach(issue => issuesByType.set(issue.type, issue));
 
@@ -40,7 +45,35 @@ export function cleanCSV(
     cellsModified += result.modified;
   }
 
+  // 5. Clean header casing (optional / issue-based)
+  if (issuesByType.has('header-case') || options?.headerCase) {
+    const caseFormat = options?.headerCase || 'snake_case';
+    cleanedHeaders = formatHeaderCase(cleanedHeaders, caseFormat);
+  }
+
+  // 6. Currency formatting strip
+  if (issuesByType.has('unformatted-currency')) {
+    const result = stripCurrencySymbols(cleanedRows);
+    cleanedRows = result.rows;
+    cellsModified += result.modified;
+  }
+
+  // 7. Impute missing values
+  if (issuesByType.has('missing-values') && options?.missingValueReplacement !== undefined) {
+    const result = imputeMissingValues(cleanedRows, options.missingValueReplacement);
+    cleanedRows = result.rows;
+    cellsModified += result.modified;
+  }
+
+  // 8. Find and Replace transform
+  if (options?.findReplace && options.findReplace.search) {
+    const result = applyFindAndReplace(cleanedRows, options.findReplace);
+    cleanedRows = result.rows;
+    cellsModified += result.modified;
+  }
+
   return {
+    cleanedHeaders,
     cleanedRows,
     rowsRemoved,
     cellsModified,
@@ -97,11 +130,9 @@ function fixMalformedRows(rows: string[][], expectedColumns: number): { rows: st
   const cleanedRows = rows.map(row => {
     if (row.length !== expectedColumns) {
       modified++;
-      // Pad short rows with empty strings
       if (row.length < expectedColumns) {
         return [...row, ...Array(expectedColumns - row.length).fill('')];
       }
-      // Truncate long rows
       return row.slice(0, expectedColumns);
     }
     return row;
@@ -109,12 +140,100 @@ function fixMalformedRows(rows: string[][], expectedColumns: number): { rows: st
   return { rows: cleanedRows, modified };
 }
 
+export function formatHeaderCase(headers: string[], format: HeaderCaseOption): string[] {
+  return headers.map(h => {
+    let clean = h.trim();
+    if (!clean) return 'column';
+
+    switch (format) {
+      case 'snake_case':
+        return clean.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+      case 'camelCase':
+        return clean
+          .toLowerCase()
+          .replace(/[^a-z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
+      case 'UPPERCASE':
+        return clean.toUpperCase().replace(/[^A-Z0-9]+/g, '_');
+      case 'lowercase':
+        return clean.toLowerCase();
+      case 'Title Case':
+        return clean.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+      default:
+        return clean;
+    }
+  });
+}
+
+function stripCurrencySymbols(rows: string[][]): { rows: string[][]; modified: number } {
+  let modified = 0;
+  const currencyRegex = /^\s*[$€£¥]\s*([\d,]+(?:\.\d+)?)\s*$/;
+
+  const cleanedRows = rows.map(row =>
+    row.map(cell => {
+      const match = cell.match(currencyRegex);
+      if (match) {
+        modified++;
+        return match[1].replace(/,/g, '');
+      }
+      return cell;
+    })
+  );
+
+  return { rows: cleanedRows, modified };
+}
+
+function imputeMissingValues(rows: string[][], replacement: string): { rows: string[][]; modified: number } {
+  let modified = 0;
+  const cleanedRows = rows.map(row =>
+    row.map(cell => {
+      if (cell === '' || cell.toLowerCase() === 'null' || cell.toLowerCase() === 'undefined' || cell === 'N/A') {
+        modified++;
+        return replacement;
+      }
+      return cell;
+    })
+  );
+  return { rows: cleanedRows, modified };
+}
+
+function applyFindAndReplace(rows: string[][], config: FindAndReplaceConfig): { rows: string[][]; modified: number } {
+  let modified = 0;
+  const flags = config.matchCase ? 'g' : 'gi';
+  let regex: RegExp;
+
+  try {
+    regex = config.isRegex ? new RegExp(config.search, flags) : new RegExp(escapeRegExp(config.search), flags);
+  } catch (e) {
+    return { rows, modified: 0 };
+  }
+
+  const cleanedRows = rows.map(row =>
+    row.map((cell, colIndex) => {
+      if (config.columnIndex !== undefined && config.columnIndex !== colIndex) return cell;
+      if (regex.test(cell)) {
+        modified++;
+        return cell.replace(regex, config.replace);
+      }
+      return cell;
+    })
+  );
+
+  return { rows: cleanedRows, modified };
+}
+
+function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 export function getSampleCSV(): string {
-  return `First Name,Email,Company,Status
-Sarah,sarah@acme.co,Acme Corp,Active
-  John  ,john@smith .com,Smith LLC,Pending
+  return `First Name,Email Address,Company Name,Status,Monthly Spend
+  Sarah  ,sarah@acme.co,Acme Corp,Active,$1,250.00
+  John  ,john@smith .com,Smith LLC,Pending,$850.00
 ,,,,
-Sarah,sarah@acme.co,Acme Corp,Active
-Mike,mike@tech.io,Tech Inc,Active
-  Emma  ,emma@dev.com,Dev Co,Pending`;
+Sarah,sarah@acme.co,Acme Corp,Active,$1,250.00
+  David  ,david@design.io ,Design IO,Active,$3,400.00
+  Emily,emily@tech.com,Tech Solutions,Pending,N/A
+,,,,
+  Alex,alex@global.org ,Global Org,Active,$920.00
+David,david@design.io,Design IO,Active,$3,400.00`;
 }

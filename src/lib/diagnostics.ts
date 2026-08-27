@@ -1,4 +1,4 @@
-import type { ParsedCSV, DiagnosticIssue, DiagnosticReport, Severity } from './types';
+import type { ParsedCSV, DiagnosticIssue, DiagnosticReport } from './types';
 
 export function diagnoseCSV(parsed: ParsedCSV): DiagnosticReport {
   const issues: DiagnosticIssue[] = [];
@@ -26,6 +26,18 @@ export function diagnoseCSV(parsed: ParsedCSV): DiagnosticReport {
   // Rule 6: Detect header inconsistencies
   const headerIssue = detectHeaderIssues(parsed);
   if (headerIssue) issues.push(headerIssue);
+
+  // Rule 7: Detect messy header casing / special chars
+  const headerCaseIssue = detectHeaderCaseIssues(parsed);
+  if (headerCaseIssue) issues.push(headerCaseIssue);
+
+  // Rule 8: Detect currency formatting
+  const currencyIssue = detectCurrencyFormatting(parsed);
+  if (currencyIssue) issues.push(currencyIssue);
+
+  // Rule 9: Detect missing values in data
+  const missingValueIssue = detectMissingValues(parsed);
+  if (missingValueIssue) issues.push(missingValueIssue);
 
   const summary = {
     critical: issues.filter(i => i.severity === 'critical').length,
@@ -188,7 +200,6 @@ function detectHeaderIssues(parsed: ParsedCSV): DiagnosticIssue | null {
     }
   });
 
-  // Check for duplicate headers
   const seen = new Set<string>();
   parsed.headers.forEach((header, index) => {
     if (seen.has(header)) {
@@ -210,6 +221,72 @@ function detectHeaderIssues(parsed: ParsedCSV): DiagnosticIssue | null {
     affectedColumns,
     count: issues.length,
     safetyLevel: 'safe',
+  };
+}
+
+function detectHeaderCaseIssues(parsed: ParsedCSV): DiagnosticIssue | null {
+  const nonSnakeOrCamel = parsed.headers.filter(h => h.includes(' ') || /[A-Z]/.test(h) && /[a-z]/.test(h));
+  if (nonSnakeOrCamel.length === 0) return null;
+
+  return {
+    id: 'header-case',
+    type: 'header-case',
+    severity: 'info',
+    title: `${nonSnakeOrCamel.length} headers contain spaces or mixed casing`,
+    explanation: `Headers like "${nonSnakeOrCamel.slice(0, 3).join('", "')}" contain spaces or inconsistent casing. Standardizing headers (e.g. snake_case) simplifies database imports.`,
+    affectedRows: [],
+    count: nonSnakeOrCamel.length,
+    safetyLevel: 'safe',
+  };
+}
+
+function detectCurrencyFormatting(parsed: ParsedCSV): DiagnosticIssue | null {
+  let count = 0;
+  const currencyRegex = /^\s*[$€£¥]\s*[\d,]+(\.\d+)?\s*$/;
+
+  parsed.rows.forEach(row => {
+    row.forEach(cell => {
+      if (currencyRegex.test(cell)) {
+        count++;
+      }
+    });
+  });
+
+  if (count === 0) return null;
+
+  return {
+    id: 'unformatted-currency',
+    type: 'unformatted-currency',
+    severity: 'info',
+    title: `${count} formatted currency values found`,
+    explanation: `Values containing currency symbols or commas (e.g. "$1,250.00") should be converted to raw numbers for clean database insertion.`,
+    affectedRows: [],
+    count,
+    safetyLevel: 'safe',
+  };
+}
+
+function detectMissingValues(parsed: ParsedCSV): DiagnosticIssue | null {
+  let count = 0;
+  parsed.rows.forEach(row => {
+    row.forEach(cell => {
+      if (cell === '' || cell.toLowerCase() === 'null' || cell.toLowerCase() === 'undefined' || cell === 'N/A') {
+        count++;
+      }
+    });
+  });
+
+  if (count === 0) return null;
+
+  return {
+    id: 'missing-values',
+    type: 'missing-values',
+    severity: 'warning',
+    title: `${count} missing or NULL cell values`,
+    explanation: `${count} cells have missing, empty, or placeholder values (N/A, NULL). You can impute default values or keep them clean.`,
+    affectedRows: [],
+    count,
+    safetyLevel: 'needs-review',
   };
 }
 
