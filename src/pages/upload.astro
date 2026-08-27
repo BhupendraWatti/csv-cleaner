@@ -68,53 +68,112 @@ import Navbar from '../components/Navbar.astro';
 		</nav>
 	</footer>
 
-	<script is:inline src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-	<script is:inline>
+	<!-- Loading overlay (hidden by default) -->
+	<div id="upload-loading-overlay" class="hidden fixed inset-0 bg-[#012d1d]/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center gap-4">
+		<div class="animate-spin w-12 h-12 border-4 border-white border-t-transparent rounded-full"></div>
+		<p class="text-white font-semibold text-sm font-display">Parsing your file...</p>
+	</div>
+
+	<script>
+		import Papa from 'papaparse';
+
 		document.addEventListener('DOMContentLoaded', () => {
 			const fileInput = document.getElementById('upload-file-input');
 			const browseBtn = document.getElementById('upload-browse-btn');
 			const dropzone = document.getElementById('upload-canvas-dropzone');
+			const loadingOverlay = document.getElementById('upload-loading-overlay');
 
+			// ── Browse button ──────────────────────────────────────────
 			browseBtn?.addEventListener('click', (e) => {
 				e.stopPropagation();
 				fileInput?.click();
 			});
 
+			// ── Click on dropzone ──────────────────────────────────────
 			dropzone?.addEventListener('click', () => {
 				fileInput?.click();
 			});
 
+			// ── File input change ──────────────────────────────────────
 			fileInput?.addEventListener('change', (e) => {
-				const file = e.target.files[0];
+				const file = e.target.files?.[0];
 				if (file) handleFile(file);
 			});
 
+			// ── Drag and Drop ──────────────────────────────────────────
+			dropzone?.addEventListener('dragover', (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				dropzone.classList.add('ring-2', 'ring-[#012d1d]', 'ring-offset-2');
+			});
+
+			dropzone?.addEventListener('dragenter', (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				dropzone.classList.add('ring-2', 'ring-[#012d1d]', 'ring-offset-2');
+			});
+
+			dropzone?.addEventListener('dragleave', (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				dropzone.classList.remove('ring-2', 'ring-[#012d1d]', 'ring-offset-2');
+			});
+
+			dropzone?.addEventListener('drop', (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				dropzone.classList.remove('ring-2', 'ring-[#012d1d]', 'ring-offset-2');
+				const file = e.dataTransfer?.files?.[0];
+				if (file) handleFile(file);
+			});
+
+			// ── File processing ────────────────────────────────────────
 			function handleFile(file) {
-				if (window.Papa) {
-					window.Papa.parse(file, {
-						complete: (results) => {
-							const rows = results.data;
-							if (!rows || rows.length === 0) return;
-							const headers = rows[0] || [];
-							const dataRows = rows.slice(1);
-							const payload = {
-								raw: '',
-								rows: dataRows,
-								headers: headers,
-								delimiter: results.meta.delimiter || ',',
-								rowCount: dataRows.length,
-								columnCount: headers.length,
-								fileName: file.name,
-								fileSize: file.size
-							};
-							sessionStorage.setItem('csv_cleaner_active_session', JSON.stringify(payload));
-							window.location.href = '/workspace';
-						}
-					});
-				} else {
-					window.location.href = '/workspace';
+				if (!file.name.match(/\.(csv|tsv|txt)$/i)) {
+					alert('Please upload a CSV, TSV, or TXT file.');
+					return;
 				}
+				if (file.size > 25 * 1024 * 1024) {
+					alert('File size exceeds 25MB limit. Please upload a smaller file.');
+					return;
+				}
+
+				// Show loading overlay
+				loadingOverlay?.classList.remove('hidden');
+
+				Papa.parse(file, {
+					header: false,
+					skipEmptyLines: false,
+					dynamicTyping: false,
+					complete: (results) => {
+						const rows = results.data;
+						if (!rows || rows.length === 0) {
+							loadingOverlay?.classList.add('hidden');
+							alert('This file appears to be empty or could not be parsed.');
+							return;
+						}
+						const headers = rows[0] || [];
+						const dataRows = rows.slice(1);
+						const payload = {
+							raw: '',
+							rows: dataRows,
+							headers: headers,
+							delimiter: results.meta.delimiter || ',',
+							rowCount: dataRows.length,
+							columnCount: headers.length,
+							fileName: file.name,
+							fileSize: file.size
+						};
+						sessionStorage.setItem('csv_cleaner_active_session', JSON.stringify(payload));
+						window.location.href = '/workspace';
+					},
+					error: (error) => {
+						loadingOverlay?.classList.add('hidden');
+						alert(`Error parsing file: ${error.message}`);
+					}
+				});
 			}
 		});
 	</script>
 </Layout>
+
