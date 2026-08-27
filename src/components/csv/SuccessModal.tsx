@@ -1,4 +1,14 @@
 import React from 'react';
+import { CheckCircle2Icon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import type { ExportFormat, VerificationReport } from '../../lib/types';
 
 interface SuccessModalProps {
@@ -16,45 +26,38 @@ export default function SuccessModal({
   lastExportedStats,
   onClose,
 }: SuccessModalProps) {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 bg-[#161d1f]/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#c1c8c2] text-center space-y-4 animate-in fade-in zoom-in-95">
-        <div className="w-16 h-16 rounded-full bg-[#c1ecd4] text-[#012d1d] mx-auto flex items-center justify-center">
-          <span className="material-symbols-outlined text-4xl">check_circle</span>
-        </div>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader className="items-center text-center">
+          <div className="flex size-16 items-center justify-center rounded-full bg-[#c1ecd4] text-primary">
+            <CheckCircle2Icon className="size-8" aria-hidden="true" />
+          </div>
+          <DialogTitle>Export Complete</DialogTitle>
+          <DialogDescription>
+            Your verified {exportFormat.toUpperCase()} download has started.
+          </DialogDescription>
+        </DialogHeader>
 
-        <h3 className="text-2xl font-bold text-[#012d1d] font-display">Export Complete!</h3>
+        <dl className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-2 rounded-xl border bg-muted p-4 text-sm">
+          <dt className="text-muted-foreground">Verification status</dt>
+          <dd className="font-medium">
+            {verificationReport?.isValid ? 'Verified valid' : 'Unverified'}
+          </dd>
+          <dt className="text-muted-foreground">Cells modified</dt>
+          <dd className="font-mono font-medium">{lastExportedStats.cellsModified}</dd>
+          <dt className="text-muted-foreground">Rows purged or quarantined</dt>
+          <dd className="font-mono font-medium">{lastExportedStats.rowsRemoved}</dd>
+          <dt className="text-muted-foreground">Format exported</dt>
+          <dd className="font-medium uppercase">{exportFormat}</dd>
+        </dl>
 
-        <div className="bg-[#eef5f7] rounded-xl p-4 text-xs space-y-2 border border-[#c1c8c2]/50">
-          <div className="flex justify-between text-[#414844]">
-            <span>Verification Status:</span>
-            <span className="font-bold text-[#012d1d]">
-              {verificationReport?.isValid ? '✅ Verified Valid' : '⚠️ Unverified'}
-            </span>
-          </div>
-          <div className="flex justify-between text-[#414844]">
-            <span>Cells Modified:</span>
-            <span className="font-mono font-bold text-[#161d1f]">{lastExportedStats.cellsModified}</span>
-          </div>
-          <div className="flex justify-between text-[#414844]">
-            <span>Rows Purged / Quarantined:</span>
-            <span className="font-mono font-bold text-[#161d1f]">{lastExportedStats.rowsRemoved}</span>
-          </div>
-          <div className="flex justify-between text-[#414844]">
-            <span>Format Exported:</span>
-            <span className="font-bold uppercase text-[#012d1d]">{exportFormat}</span>
-          </div>
-        </div>
-
-        <button
-          onClick={onClose}
-          className="w-full bg-[#012d1d] text-white font-semibold text-xs uppercase tracking-wider py-3 rounded-lg hover:bg-[#1b4332] shadow-xs"
-        >
-          Back to Workspace
-        </button>
-      </div>
-    </div>
+        <DialogFooter>
+          <Button type="button" className="w-full" onClick={onClose}>
+            Back to Workspace
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
