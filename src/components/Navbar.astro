@@ -13,8 +13,8 @@ const navItems = [
 ];
 ---
 
-<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-3 bg-[#f4fafd]/90 backdrop-blur-md border-b border-[#c1c8c2]">
-	<div class="flex items-center gap-6">
+<header class="fixed top-0 z-50 flex w-full items-center justify-between gap-2 border-b border-[#c1c8c2] bg-[#f4fafd]/90 px-4 py-3 backdrop-blur-md sm:px-6">
+	<div class="flex min-w-0 items-center gap-6">
 		<a href="/" class="flex items-center gap-2 text-[#012d1d] font-bold text-xl font-display">
 			<span class="material-symbols-outlined filled text-[#012d1d] text-2xl">cleaning_services</span>
 			<span>CSV Cleaner</span>
@@ -37,9 +37,9 @@ const navItems = [
 		</nav>
 	</div>
 
-	<div class="flex items-center gap-4">
+	<div class="flex shrink-0 items-center gap-2 sm:gap-4">
 		{showHealthBadge && (
-			<div id="header-health-badge" aria-live="polite" aria-label="Dataset health score loading" class="flex items-center gap-2 px-3 py-1 bg-[#e8eff1] rounded-full border border-[#c1c8c2]/50 shadow-xs">
+			<div id="header-health-badge" aria-live="polite" aria-label="Dataset health score loading" class="hidden items-center gap-2 rounded-full border border-[#c1c8c2]/50 bg-[#e8eff1] px-3 py-1 shadow-xs sm:flex">
 				<div class="relative w-6 h-6 flex items-center justify-center">
 					<svg class="w-6 h-6 -rotate-90" viewBox="0 0 36 36">
 						<path class="text-[#dde4e6]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="100, 100" stroke-width="3.5"></path>
@@ -52,7 +52,7 @@ const navItems = [
 			</div>
 		)}
 
-		<a href="/#workspace-container" class="bg-[#012d1d] text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-lg hover:bg-[#1b4332] transition-colors inline-block shadow-xs">
+		<a href="/#workspace-container" class="inline-block rounded-lg bg-[#012d1d] px-3 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-xs transition-colors hover:bg-[#1b4332] sm:px-4">
 			Clean My CSV
 		</a>
 	</div>
