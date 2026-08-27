@@ -179,6 +179,22 @@ export default function CSVCleaner() {
     runCleaningAndVerification();
   }, [runCleaningAndVerification]);
 
+  // Keep the server-rendered header trust signal aligned with the active dataset.
+  useEffect(() => {
+    if (!report) return;
+
+    const score = Math.max(0, Math.min(100, report.healthScore));
+    const badge = document.getElementById('header-health-badge');
+    const scoreLabel = document.getElementById('header-health-score');
+    const circle = document.getElementById('header-health-circle');
+    const icon = document.getElementById('header-health-icon');
+
+    if (scoreLabel) scoreLabel.textContent = `${score}/100`;
+    if (circle) circle.setAttribute('stroke-dasharray', `${score}, 100`);
+    if (icon) icon.textContent = score >= 80 ? 'check_circle' : score >= 50 ? 'warning' : 'error';
+    if (badge) badge.setAttribute('aria-label', `Current dataset health score: ${score} out of 100`);
+  }, [report]);
+
   // Initial Load from Session Storage or Sample
   useEffect(() => {
     const cached = sessionStorage.getItem('csv_cleaner_active_session');
