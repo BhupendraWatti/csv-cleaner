@@ -4,28 +4,12 @@ import Navbar from '../components/Navbar.astro';
 import CSVCleaner from '../components/CSVCleaner';
 ---
 
-<Layout title="Cleaning Workspace — CSV Cleaner">
-	<Navbar activePage="workspace" />
+<Layout title="CSV Cleaner — Clean your data locally">
+	<Navbar activePage="home" />
 
-	<main class="flex-grow pt-20 bg-[#f4fafd] min-h-[calc(100vh-80px)]">
-		<section class="max-w-7xl mx-auto px-6 py-8">
+	<main class="flex-grow pt-20 bg-[#f4fafd] min-h-screen">
+		<section class="max-w-7xl mx-auto px-6 py-6 space-y-8">
 			<CSVCleaner client:only="react" />
 		</section>
 	</main>
-
-	<!-- Footer -->
-	<footer class="w-full py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-white border-t border-[#c1c8c2]">
-		<div class="text-[#012d1d] font-bold font-display text-lg flex items-center gap-2">
-			<span class="material-symbols-outlined filled text-xl">cleaning_services</span>
-			<span>CSV Cleaner</span>
-		</div>
-		<div class="text-xs text-[#414844] text-center">
-			© 2026 CSV Cleaner. Privacy First. Runs locally in your browser.
-		</div>
-		<nav class="flex gap-4 text-xs font-semibold uppercase tracking-wider text-[#414844]">
-			<a href="/features" class="hover:text-[#012d1d] transition-colors">Features</a>
-			<a href="/how-it-works" class="hover:text-[#012d1d] transition-colors">How It Works</a>
-			<a href="/upload" class="hover:text-[#012d1d] transition-colors">Upload</a>
-		</nav>
-	</footer>
 </Layout>

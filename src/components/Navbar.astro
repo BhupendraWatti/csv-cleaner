@@ -5,21 +5,12 @@ interface Props {
 }
 
 const { activePage, showHealthBadge = true } = Astro.props;
-const pathname = Astro.url.pathname;
 
 const navItems = [
+	{ name: 'Cleaner Tool', href: '/#workspace-container', id: 'home' },
 	{ name: 'Features', href: '/features', id: 'features' },
 	{ name: 'How It Works', href: '/how-it-works', id: 'how-it-works' },
-	{ name: 'Upload', href: '/upload', id: 'upload' },
-	{ name: 'Workspace', href: '/workspace', id: 'workspace' },
 ];
-
-function isActive(item: { href: string; id: string }) {
-	if (activePage) return activePage === item.id;
-	if (item.href === '/' && (pathname === '/' || pathname === '')) return true;
-	if (item.href !== '/' && pathname.startsWith(item.href)) return true;
-	return false;
-}
 ---
 
 <header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-3 bg-[#f4fafd]/90 backdrop-blur-md border-b border-[#c1c8c2]">
@@ -30,7 +21,7 @@ function isActive(item: { href: string; id: string }) {
 		</a>
 		<nav class="hidden md:flex items-center gap-5">
 			{navItems.map((item) => {
-				const active = isActive(item);
+				const active = activePage === item.id;
 				return (
 					<a
 						href={item.href}
@@ -55,14 +46,14 @@ function isActive(item: { href: string; id: string }) {
 						<path id="header-health-circle" class="text-[#012d1d] transition-all duration-700" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="82, 100" stroke-width="3.5"></path>
 					</svg>
 				</div>
-				<span class="text-xs font-semibold text-[#414844] uppercase tracking-wider">CSV Health:</span>
-				<span id="header-health-score" class="text-sm font-bold text-[#012d1d]">82/100</span>
+				<span class="text-xs font-semibold text-[#414844] uppercase tracking-wider">Health:</span>
+				<span id="header-health-score" class="text-sm font-bold text-[#012d1d]">100/100</span>
 				<span id="header-health-icon" class="material-symbols-outlined text-[#012d1d] text-base">check_circle</span>
 			</div>
 		)}
 
-		<a href="/upload" class="bg-[#012d1d] text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-lg hover:bg-[#1b4332] transition-colors hidden sm:inline-block shadow-xs">
-			Clean a CSV
+		<a href="/#workspace-container" class="bg-[#012d1d] text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-lg hover:bg-[#1b4332] transition-colors inline-block shadow-xs">
+			Clean My CSV
 		</a>
 	</div>
 </header>
