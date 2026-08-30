@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Privacy & Security — CSV Cleaner" description="100% client-side privacy architecture. Zero servers, zero storage, complete peace of mind when processing tabular data files.">
+	<Navbar activePage="privacy" />
+
+	<main class="flex-grow pt-28 pb-20">
+		<!-- Hero Section -->
+		<section class="bg-gradient-to-b from-[#012d1d]/5 dark:from-[#34d399]/10 to-transparent py-16 px-6 mb-12">
+			<div class="max-w-4xl mx-auto text-center">
+				<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-6xl mb-4" style="font-variation-settings: 'FILL' 1;">shield</span>
+				<h1 class="text-4xl md:text-5xl font-extrabold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-4">Privacy & Security Architecture</h1>
+				<p class="text-lg text-[#414844] dark:text-[#94a3b8] max-w-2xl mx-auto leading-relaxed">
+					We built CSV Cleaner to respect your data. Our browser-first approach means your files never leave your device. Zero servers, zero cloud storage, complete peace of mind.
+				</p>
+			</div>
+		</section>
+
+		<!-- Browser-Only Process Flow Visual -->
+		<section class="max-w-6xl mx-auto px-6 mb-16">
+			<div class="bg-white dark:bg-[#0e2019] border border-[#c1c8c2] dark:border-[#1b3b2f] rounded-2xl p-8 shadow-sm">
+				<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display text-center mb-10">The Browser-Only Execution Loop</h2>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+					<!-- Step 1 -->
+					<div class="flex flex-col items-center bg-[#f4fafd] dark:bg-[#0a1713] p-6 rounded-xl border border-[#c1c8c2] dark:border-[#1b3b2f] text-center">
+						<div class="w-14 h-14 rounded-full bg-[#d8e2dc] dark:bg-[#162f25] text-[#012d1d] dark:text-[#34d399] flex items-center justify-center mb-4 shadow-xs">
+							<span class="material-symbols-outlined text-2xl">desktop_windows</span>
+						</div>
+						<h3 class="text-lg font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">1. Your File (Local)</h3>
+						<p class="text-xs text-[#414844] dark:text-[#94a3b8] leading-relaxed">Your CSV file remains securely on your local disk. It is never uploaded to any remote server or third-party storage.</p>
+					</div>
+
+					<!-- Step 2 -->
+					<div class="flex flex-col items-center bg-[#012d1d] dark:bg-[#104430] text-white p-6 rounded-xl text-center shadow-lg relative transform md:-translate-y-2 border dark:border-[#34d399]/40">
+						<div class="w-14 h-14 rounded-full bg-[#c1ecd4] dark:bg-[#34d399] text-[#012d1d] dark:text-[#002114] flex items-center justify-center mb-4 shadow-xs">
+							<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">cleaning_services</span>
+						</div>
+						<h3 class="text-lg font-bold mb-2 font-display">2. In-Memory Sandbox</h3>
+						<p class="text-xs text-[#a5d0b9] leading-relaxed">All parsing, data transformation, and cleaning execute locally using WebAssembly and Javascript in browser RAM.</p>
+					</div>
+
+					<!-- Step 3 -->
+					<div class="flex flex-col items-center bg-[#f4fafd] dark:bg-[#0a1713] p-6 rounded-xl border border-[#c1c8c2] dark:border-[#1b3b2f] text-center">
+						<div class="w-14 h-14 rounded-full bg-[#d8e2dc] dark:bg-[#162f25] text-[#012d1d] dark:text-[#34d399] flex items-center justify-center mb-4 shadow-xs">
+							<span class="material-symbols-outlined text-2xl">download</span>
+						</div>
+						<h3 class="text-lg font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">3. Clean File (Export)</h3>
+						<p class="text-xs text-[#414844] dark:text-[#94a3b8] leading-relaxed">The cleaned CSV or Excel file is exported directly to your downloads. Closing the tab purges memory completely.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Zero Data Storage Guarantee Bento -->
+		<section class="max-w-6xl mx-auto px-6 mb-16">
+			<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-6">Zero Data Storage Guarantees</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<!-- Card 1 -->
+				<div class="bg-white dark:bg-[#0e2019] border border-[#c1c8c2] dark:border-[#1b3b2f] rounded-xl p-6 flex flex-col items-start hover:border-[#012d1d] hover:dark:border-[#34d399] transition-colors">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-4xl mb-3" style="font-variation-settings: 'FILL' 1;">cloud_off</span>
+					<h3 class="text-lg font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">No Backend Server Uploads</h3>
+					<p class="text-sm text-[#414844] dark:text-[#94a3b8] leading-relaxed">We do not operate backend ingestion servers for CSV files. High-performance WASM handles massive multi-megabyte files on your CPU.</p>
+				</div>
+				<!-- Card 2 -->
+				<div class="bg-white dark:bg-[#0e2019] border border-[#c1c8c2] dark:border-[#1b3b2f] rounded-xl p-6 flex flex-col items-start hover:border-[#012d1d] hover:dark:border-[#34d399] transition-colors">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-4xl mb-3" style="font-variation-settings: 'FILL' 1;">database</span>
+					<h3 class="text-lg font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">Zero Database Footprint</h3>
+					<p class="text-sm text-[#414844] dark:text-[#94a3b8] leading-relaxed">There is no database backing this application. We physically cannot inspect or leak your confidential business or personal records.</p>
+				</div>
+				<!-- Card 3 -->
+				<div class="bg-white dark:bg-[#0e2019] border border-[#c1c8c2] dark:border-[#1b3b2f] rounded-xl p-6 flex flex-col items-start hover:border-[#012d1d] hover:dark:border-[#34d399] transition-colors">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-4xl mb-3" style="font-variation-settings: 'FILL' 1;">history_toggle_off</span>
+					<h3 class="text-lg font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">Ephemeral Memory Wiping</h3>
+					<p class="text-sm text-[#414844] dark:text-[#94a3b8] leading-relaxed">The instant you close or refresh the browser tab, all transient tabular state, rulesets, and memory buffers are immediately garbage collected.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Disclosure Details -->
+		<section class="max-w-3xl mx-auto px-6 mb-16 space-y-10">
+			<div>
+				<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-3 mb-4 flex items-center gap-2">
+					<span class="material-symbols-outlined text-2xl text-[#012d1d] dark:text-[#34d399]">visibility</span> What We Collect & What We Don't
+				</h2>
+				<ul class="space-y-2 text-sm text-[#414844] dark:text-[#94a3b8] list-disc list-inside leading-relaxed">
+					<li><strong>Zero User CSV Data:</strong> We never log, store, or inspect your cell data, headers, or row contents.</li>
+					<li><strong>No Tracking Cookies:</strong> No persistent tracking pixels or ad network telemetry scripts are installed.</li>
+					<li><strong>Air-Gapped Ready:</strong> You can load this web application, disconnect your Wi-Fi, and process files 100% offline.</li>
+				</ul>
+			</div>
+
+			<div>
+				<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-3 mb-4 flex items-center gap-2">
+					<span class="material-symbols-outlined text-2xl text-[#012d1d] dark:text-[#34d399]">memory</span> Technical Implementation
+				</h2>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] leading-relaxed mb-3">
+					CSV Cleaner leverages standard browser File System Access APIs and PapaParse web worker threads to stream rows chunk-by-chunk directly inside your browser process.
+				</p>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] leading-relaxed">
+					Because operations happen within your browser's sandboxed security model, your datasets remain isolated from third-party scripts and cross-site vulnerabilities.
+				</p>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>

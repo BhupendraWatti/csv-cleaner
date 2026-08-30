@@ -31,7 +31,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="en" class="light">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -39,6 +39,23 @@ const jsonLd = {
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="canonical" href={canonicalUrl} />
 		<title>{title}</title>
+
+		<!-- Inline Theme Initialization to Prevent FOUC -->
+		<script is:inline>
+			(function() {
+				try {
+					const storedTheme = localStorage.getItem('theme');
+					const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+					if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+						document.documentElement.classList.add('dark');
+						document.documentElement.classList.remove('light');
+					} else {
+						document.documentElement.classList.add('light');
+						document.documentElement.classList.remove('dark');
+					}
+				} catch (e) {}
+			})();
+		</script>
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
@@ -62,7 +79,7 @@ const jsonLd = {
 		<!-- JSON-LD Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	</head>
-	<body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden min-h-screen flex flex-col selection:bg-primary selection:text-on-primary">
+	<body class="bg-background text-foreground font-body-md antialiased overflow-x-hidden min-h-screen flex flex-col selection:bg-primary selection:text-primary-foreground">
 		<slot />
 	</body>
 </html>

@@ -1,33 +1,49 @@
 ---
+import ThemeToggle from './ThemeToggle.astro';
+
 interface Props {
-	activePage?: 'home' | 'features' | 'how-it-works' | 'upload' | 'workspace';
+	activePage?: 'home' | 'features' | 'how-it-works' | 'tools' | 'use-cases' | 'guides' | 'faq' | 'privacy' | 'contact' | 'examples' | 'terms';
 	showHealthBadge?: boolean;
 }
 
 const { activePage, showHealthBadge = true } = Astro.props;
 
 const navItems = [
-	{ name: 'Cleaner Tool', href: '/#workspace-container', id: 'home' },
 	{ name: 'Features', href: '/features', id: 'features' },
 	{ name: 'How It Works', href: '/how-it-works', id: 'how-it-works' },
+	{ name: 'Tools', href: '/tools', id: 'tools' },
+	{ name: 'Use Cases', href: '/use-cases', id: 'use-cases' },
+	{ name: 'Guides', href: '/guides', id: 'guides' },
+	{ name: 'FAQ', href: '/faq', id: 'faq' },
+	{ name: 'Playground', href: '/examples', id: 'examples' },
+];
+
+// 4 dock items shown permanently at bottom on mobile
+const dockItems = [
+	{ name: 'Home', href: '/', id: 'home', icon: 'home' },
+	{ name: 'Tools', href: '/tools', id: 'tools', icon: 'construction' },
+	{ name: 'Guides', href: '/guides', id: 'guides', icon: 'menu_book' },
+	{ name: 'FAQ', href: '/faq', id: 'faq', icon: 'help' },
 ];
 ---
 
-<header class="fixed top-0 z-50 flex w-full items-center justify-between gap-2 border-b border-[#c1c8c2] bg-[#f4fafd]/90 px-4 py-3 backdrop-blur-md sm:px-6">
+<!-- ═══════════ DESKTOP / TABLET TOP HEADER ═══════════ -->
+<header class="fixed top-0 z-50 flex w-full items-center justify-between gap-2 border-b border-[#c1c8c2] dark:border-[#1b3b2f] bg-[#f4fafd]/90 dark:bg-[#06120e]/90 px-4 py-3 backdrop-blur-md sm:px-6 transition-colors duration-200">
 	<div class="flex min-w-0 items-center gap-6">
-		<a href="/" class="flex items-center gap-2 text-[#012d1d] font-bold text-xl font-display">
-			<span class="material-symbols-outlined filled text-[#012d1d] text-2xl">cleaning_services</span>
+		<a href="/" class="flex items-center gap-2 text-[#012d1d] dark:text-[#f0fdf4] font-bold text-xl font-display">
+			<span class="material-symbols-outlined filled text-[#012d1d] dark:text-[#34d399] text-2xl">cleaning_services</span>
 			<span>CSV Cleaner</span>
 		</a>
-		<nav class="hidden md:flex items-center gap-5">
+		<!-- Desktop nav links (lg+) -->
+		<nav class="hidden lg:flex items-center gap-4 xl:gap-5">
 			{navItems.map((item) => {
 				const active = activePage === item.id;
 				return (
 					<a
 						href={item.href}
 						class={active 
-							? "text-[#012d1d] border-b-2 border-[#012d1d] pb-0.5 text-xs font-semibold uppercase tracking-wider transition-all" 
-							: "text-[#414844] hover:text-[#012d1d] border-b-2 border-transparent pb-0.5 text-xs font-semibold uppercase tracking-wider transition-all"
+							? "text-[#012d1d] dark:text-[#34d399] border-b-2 border-[#012d1d] dark:border-[#34d399] pb-0.5 text-xs font-semibold uppercase tracking-wider transition-all" 
+							: "text-[#414844] dark:text-[#94a3b8] hover:text-[#012d1d] dark:hover:text-[#34d399] border-b-2 border-transparent pb-0.5 text-xs font-semibold uppercase tracking-wider transition-all"
 						}
 					>
 						{item.name}
@@ -37,23 +53,206 @@ const navItems = [
 		</nav>
 	</div>
 
-	<div class="flex shrink-0 items-center gap-2 sm:gap-4">
+	<div class="flex shrink-0 items-center gap-2 sm:gap-3">
 		{showHealthBadge && (
-			<div id="header-health-badge" aria-live="polite" aria-label="Dataset health score loading" class="hidden items-center gap-2 rounded-full border border-[#c1c8c2]/50 bg-[#e8eff1] px-3 py-1 shadow-xs sm:flex">
+			<div id="header-health-badge" aria-live="polite" aria-label="Dataset health score loading" class="hidden items-center gap-2 rounded-full border border-[#c1c8c2]/50 dark:border-[#1b3b2f] bg-[#e8eff1] dark:bg-[#0e2019] px-3 py-1 shadow-xs sm:flex">
 				<div class="relative w-6 h-6 flex items-center justify-center">
 					<svg class="w-6 h-6 -rotate-90" viewBox="0 0 36 36">
-						<path class="text-[#dde4e6]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="100, 100" stroke-width="3.5"></path>
-						<path id="header-health-circle" class="text-[#012d1d] transition-all duration-700" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="0, 100" stroke-width="3.5"></path>
+						<path class="text-[#dde4e6] dark:text-[#1b3b2f]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="100, 100" stroke-width="3.5"></path>
+						<path id="header-health-circle" class="text-[#012d1d] dark:text-[#34d399] transition-all duration-700" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="0, 100" stroke-width="3.5"></path>
 					</svg>
 				</div>
-				<span class="text-xs font-semibold text-[#414844] uppercase tracking-wider">Health:</span>
-				<span id="header-health-score" class="text-sm font-bold text-[#012d1d]">--/100</span>
-				<span id="header-health-icon" class="material-symbols-outlined text-[#012d1d] text-base">pending</span>
+				<span class="text-xs font-semibold text-[#414844] dark:text-[#94a3b8] uppercase tracking-wider">Health:</span>
+				<span id="header-health-score" class="text-sm font-bold text-[#012d1d] dark:text-[#f0fdf4]">--/100</span>
+				<span id="header-health-icon" class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-base">pending</span>
 			</div>
 		)}
 
-		<a href="/#workspace-container" class="inline-block rounded-lg bg-[#012d1d] px-3 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-xs transition-colors hover:bg-[#1b4332] sm:px-4">
+		<!-- Theme Toggle Button -->
+		<ThemeToggle />
+
+		<a href="/#workspace-container" class="inline-block rounded-lg bg-[#012d1d] dark:bg-[#34d399] px-3 py-2 text-xs font-semibold uppercase tracking-wider text-white dark:text-[#002114] shadow-xs transition-colors hover:bg-[#1b4332] dark:hover:bg-[#2dd4bf] sm:px-4">
 			Clean My CSV
 		</a>
+
+		<!-- Mobile hamburger button (visible below lg) -->
+		<button
+			id="mobile-menu-btn"
+			class="lg:hidden flex flex-col items-center justify-center w-9 h-9 rounded-lg border border-[#c1c8c2] dark:border-[#1b3b2f] bg-white dark:bg-[#0e2019] hover:bg-[#f4fafd] dark:hover:bg-[#162f25] transition-colors gap-[5px] px-2"
+			aria-label="Open full menu"
+			aria-expanded="false"
+		>
+			<span class="block w-full h-0.5 bg-[#012d1d] dark:bg-[#34d399] rounded-full transition-all duration-300" id="ham-top"></span>
+			<span class="block w-full h-0.5 bg-[#012d1d] dark:bg-[#34d399] rounded-full transition-all duration-300" id="ham-mid"></span>
+			<span class="block w-3/4 h-0.5 bg-[#012d1d] dark:bg-[#34d399] rounded-full transition-all duration-300 self-end" id="ham-bot"></span>
+		</button>
 	</div>
 </header>
+
+<!-- ═══════════ MOBILE FULL-SCREEN MENU OVERLAY ═══════════ -->
+<div
+	id="mobile-menu-overlay"
+	class="fixed inset-0 z-[60] flex flex-col bg-[#012d1d] dark:bg-[#06120e] text-white translate-x-full transition-transform duration-300 ease-in-out lg:hidden"
+	aria-hidden="true"
+>
+	<!-- Close button -->
+	<div class="flex items-center justify-between px-5 py-4 border-b border-white/10 dark:border-[#1b3b2f]">
+		<a href="/" class="flex items-center gap-2 font-bold text-xl font-display text-white">
+			<span class="material-symbols-outlined text-[#c1ecd4] dark:text-[#34d399] text-2xl">cleaning_services</span>
+			<span>CSV Cleaner</span>
+		</a>
+		<div class="flex items-center gap-2">
+			<ThemeToggle class="border-white/20 dark:border-[#1b3b2f] bg-white/10 dark:bg-[#0e2019] text-white dark:text-[#34d399]" />
+			<button
+				id="mobile-menu-close"
+				class="w-9 h-9 rounded-full bg-white/10 dark:bg-[#0e2019] flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer"
+				aria-label="Close menu"
+			>
+				<span class="material-symbols-outlined text-white text-xl">close</span>
+			</button>
+		</div>
+	</div>
+
+	<!-- Nav links in overlay -->
+	<nav class="flex-1 overflow-y-auto py-4 px-5 space-y-1">
+		{navItems.map((item) => {
+			const active = activePage === item.id;
+			return (
+				<a
+					href={item.href}
+					class={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold transition-all ${
+						active
+							? 'bg-[#c1ecd4] text-[#012d1d] dark:bg-[#34d399] dark:text-[#002114]'
+							: 'text-white/80 hover:bg-white/10 hover:text-white'
+					}`}
+				>
+					<span class="material-symbols-outlined text-lg">
+						{item.id === 'features' ? 'auto_awesome'
+						: item.id === 'how-it-works' ? 'info'
+						: item.id === 'tools' ? 'construction'
+						: item.id === 'use-cases' ? 'cases'
+						: item.id === 'guides' ? 'menu_book'
+						: item.id === 'faq' ? 'help'
+						: 'play_circle'}
+					</span>
+					{item.name}
+					{active && <span class="ml-auto text-[10px] font-bold uppercase tracking-wider bg-[#012d1d]/20 text-[#002114] px-2 py-0.5 rounded-full">Current</span>}
+				</a>
+			);
+		})}
+	</nav>
+
+	<!-- Footer area of overlay -->
+	<div class="px-5 py-5 border-t border-white/10 dark:border-[#1b3b2f] space-y-3">
+		<a href="/privacy" class="flex items-center gap-2 text-xs text-white/50 hover:text-white/80 transition-colors">
+			<span class="material-symbols-outlined text-sm">shield</span>
+			Privacy Policy
+		</a>
+		<a href="/terms" class="flex items-center gap-2 text-xs text-white/50 hover:text-white/80 transition-colors">
+			<span class="material-symbols-outlined text-sm">description</span>
+			Terms of Service
+		</a>
+		<a href="/contact" class="flex items-center gap-2 text-xs text-white/50 hover:text-white/80 transition-colors">
+			<span class="material-symbols-outlined text-sm">mail</span>
+			Contact Us
+		</a>
+		<div class="pt-2">
+			<a href="/#workspace-container" class="w-full flex items-center justify-center gap-2 bg-[#c1ecd4] dark:bg-[#34d399] text-[#002114] font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-xl hover:bg-white dark:hover:bg-[#2dd4bf] transition-colors shadow-md">
+				<span class="material-symbols-outlined text-base">upload_file</span>
+				Upload & Clean CSV
+			</a>
+		</div>
+	</div>
+</div>
+
+<!-- ═══════════ MOBILE BOTTOM DOCK NAV ═══════════ -->
+<nav
+	class="fixed bottom-0 left-0 right-0 z-50 lg:hidden"
+	aria-label="Mobile dock navigation"
+>
+	<div class="mx-3 mb-3 bg-white/80 dark:bg-[#0e2019]/90 backdrop-blur-xl border border-[#c1c8c2] dark:border-[#1b3b2f] rounded-2xl shadow-xl px-2 py-2 flex items-center justify-around">
+		{dockItems.map((item) => {
+			const active = activePage === item.id;
+			return (
+				<a
+					href={item.href}
+					class={`flex flex-col items-center gap-1 flex-1 py-1.5 px-1 rounded-xl transition-all duration-200 ${
+						active ? 'bg-[#012d1d] dark:bg-[#34d399] text-white dark:text-[#002114]' : 'text-[#414844] dark:text-[#94a3b8] hover:bg-[#f4fafd] dark:hover:bg-[#162f25] hover:text-[#012d1d] dark:hover:text-[#34d399]'
+					}`}
+					aria-current={active ? 'page' : undefined}
+				>
+					<span class={`material-symbols-outlined text-2xl transition-all ${active ? '' : ''}`} style={active ? "font-variation-settings: 'FILL' 1" : ""}>
+						{item.icon}
+					</span>
+					<span class="text-[10px] font-bold uppercase tracking-wider leading-none">{item.name}</span>
+				</a>
+			);
+		})}
+		<!-- More button opens full overlay -->
+		<button
+			id="dock-more-btn"
+			class="flex flex-col items-center gap-1 flex-1 py-1.5 px-1 rounded-xl text-[#414844] dark:text-[#94a3b8] hover:bg-[#f4fafd] dark:hover:bg-[#162f25] hover:text-[#012d1d] dark:hover:text-[#34d399] transition-all duration-200 cursor-pointer"
+			aria-label="Open full navigation menu"
+		>
+			<span class="material-symbols-outlined text-2xl">grid_view</span>
+			<span class="text-[10px] font-bold uppercase tracking-wider leading-none">More</span>
+		</button>
+	</div>
+</nav>
+
+<!-- ════════ BODY PADDING ADJUSTER FOR MOBILE DOCK ════════ -->
+<style>
+	@media (max-width: 1023px) {
+		main {
+			padding-bottom: 5.5rem !important;
+		}
+	}
+</style>
+
+<script>
+	const btn = document.getElementById('mobile-menu-btn');
+	const overlay = document.getElementById('mobile-menu-overlay');
+	const closeBtn = document.getElementById('mobile-menu-close');
+	const dockMore = document.getElementById('dock-more-btn');
+
+	function openMenu() {
+		overlay?.classList.remove('translate-x-full');
+		overlay?.classList.add('translate-x-0');
+		overlay?.setAttribute('aria-hidden', 'false');
+		btn?.setAttribute('aria-expanded', 'true');
+		document.body.style.overflow = 'hidden';
+
+		// Animate hamburger → X
+		document.getElementById('ham-top')?.classList.add('rotate-45', 'translate-y-[7px]');
+		document.getElementById('ham-mid')?.classList.add('opacity-0', 'scale-x-0');
+		document.getElementById('ham-bot')?.classList.add('-rotate-45', '-translate-y-[7px]', 'w-full');
+	}
+
+	function closeMenu() {
+		overlay?.classList.add('translate-x-full');
+		overlay?.classList.remove('translate-x-0');
+		overlay?.setAttribute('aria-hidden', 'true');
+		btn?.setAttribute('aria-expanded', 'false');
+		document.body.style.overflow = '';
+
+		// Reset hamburger
+		document.getElementById('ham-top')?.classList.remove('rotate-45', 'translate-y-[7px]');
+		document.getElementById('ham-mid')?.classList.remove('opacity-0', 'scale-x-0');
+		document.getElementById('ham-bot')?.classList.remove('-rotate-45', '-translate-y-[7px]', 'w-full');
+	}
+
+	btn?.addEventListener('click', openMenu);
+	dockMore?.addEventListener('click', openMenu);
+	closeBtn?.addEventListener('click', closeMenu);
+
+	// Close on ESC
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') closeMenu();
+	});
+
+	// Close when a nav link inside overlay is clicked
+	overlay?.querySelectorAll('a').forEach(link => {
+		link.addEventListener('click', closeMenu);
+	});
+</script>
+

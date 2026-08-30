@@ -72,18 +72,20 @@ export default function CSVCleaner() {
     setToasts(prev => prev.filter(t => t.id !== id));
   };
 
-  // Safe Session Storage Saving
-  const saveSession = (data: ParsedCSV) => {
+  // Safe Session Storage Saving — only flag user-uploaded files for restore
+  const saveSession = (data: ParsedCSV, isUserUpload = false) => {
     try {
       const jsonStr = JSON.stringify(data);
       if (jsonStr.length < 4 * 1024 * 1024) {
         sessionStorage.setItem('csv_cleaner_active_session', jsonStr);
       } else {
-        // Exceeds typical sessionStorage limit, store metadata only
         sessionStorage.setItem(
           'csv_cleaner_active_session',
           JSON.stringify({ ...data, raw: '', rows: data.rows.slice(0, 100) })
         );
+      }
+      if (isUserUpload) {
+        sessionStorage.setItem('csv_user_uploaded', 'true');
       }
     } catch (e) {
       console.warn('Unable to persist session to sessionStorage:', e);
@@ -121,7 +123,8 @@ export default function CSVCleaner() {
         .map(issue => issue.id);
       setSelectedIssues(new Set(safeIssues));
 
-      saveSession(parsedData);
+      // isUserUpload determined by caller — passed via processCSVData options
+      saveSession(parsedData, (rawCSV !== getSampleCSV()));
 
       if (parsedData.isEmptyFile) {
         addToast('warning', 'Empty File Loaded', 'The CSV file contains no data rows.');
@@ -195,8 +198,13 @@ export default function CSVCleaner() {
     if (badge) badge.setAttribute('aria-label', `Current dataset health score: ${score} out of 100`);
   }, [report]);
 
-  // Initial Load from Session Storage or Sample
+  // Initial Load: ONLY restore if user explicitly loaded a real file (not a demo).
+  // We track user-uploaded sessions with a flag 'csv_user_uploaded'.
+  // If no user file is in session, always show the Upload Zone (never auto-load sample).
   useEffect(() => {
+    const wasUserUploaded = sessionStorage.getItem('csv_user_uploaded') === 'true';
+    if (!wasUserUploaded) return; // Show Upload Zone by default
+
     const cached = sessionStorage.getItem('csv_cleaner_active_session');
     if (cached) {
       try {
@@ -206,10 +214,10 @@ export default function CSVCleaner() {
           return;
         }
       } catch (e) {
-        // Fall through to sample
+        sessionStorage.removeItem('csv_cleaner_active_session');
+        sessionStorage.removeItem('csv_user_uploaded');
       }
     }
-    handleSampleLoad();
   }, [processCSVData]);
 
   const handleFileUpload = async (file: File) => {
@@ -229,6 +237,15 @@ export default function CSVCleaner() {
   const handleSampleLoad = () => {
     const sampleCSV = getSampleCSV();
     processCSVData(sampleCSV, 'sample_contacts.csv', new Blob([sampleCSV]).size);
+  };
+
+  const handleResetToUpload = () => {
+    setParsed(null);
+    setReport(null);
+    setCleanedResult(null);
+    setVerificationReport(null);
+    sessionStorage.removeItem('csv_cleaner_active_session');
+    sessionStorage.removeItem('csv_user_uploaded');
   };
 
   const toggleIssue = (issueId: string) => {
@@ -329,49 +346,39 @@ export default function CSVCleaner() {
       ) : (
         <>
           {/* TOP ACTION BAR */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-[#c1c8c2] shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-[#0e2019] p-4 rounded-xl border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-xs transition-colors duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#c1ecd4]/60 flex items-center justify-center text-[#012d1d]">
+              <div className="w-10 h-10 rounded-full bg-[#c1ecd4]/60 dark:bg-[#104430] flex items-center justify-center text-[#012d1d] dark:text-[#34d399] shrink-0">
                 <span className="material-symbols-outlined">description</span>
               </div>
-              <div>
-                <h2 className="text-lg font-bold text-[#161d1f] font-display flex items-center gap-2">
-                  {parsed.fileName}
-                  <span className="bg-[#e8eff1] text-[#012d1d] text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#c1c8c2]/50 uppercase">
+              <div className="min-w-0">
+                <h2 className="text-base sm:text-lg font-bold text-[#161d1f] dark:text-[#f0fdf4] font-display flex flex-wrap items-center gap-2 truncate">
+                  <span className="truncate max-w-[200px] sm:max-w-xs">{parsed.fileName}</span>
+                  <span className="bg-[#e8eff1] dark:bg-[#162f25] text-[#012d1d] dark:text-[#34d399] text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#c1c8c2]/50 dark:border-[#1b3b2f] uppercase shrink-0">
                     {Math.round(parsed.fileSize / 1024)} KB
                   </span>
                 </h2>
-                <p className="text-xs text-[#414844]">
-                  {parsed.rowCount} rows • {parsed.columnCount} columns • Delimiter: <span className="font-mono font-bold">"{parsed.delimiter}"</span>
+                <p className="text-xs text-[#414844] dark:text-[#94a3b8] truncate">
+                  {parsed.rowCount} rows • {parsed.columnCount} cols • Delimiter: <span className="font-mono font-bold">"{parsed.delimiter}"</span>
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
               <button
-                onClick={() => document.getElementById('workspace-file-input')?.click()}
-                className="px-3 py-1.5 rounded-lg border border-[#c1c8c2] text-xs font-semibold text-[#012d1d] hover:bg-[#f4fafd] transition-all flex items-center gap-1.5"
+                onClick={handleResetToUpload}
+                className="px-3.5 py-2 rounded-lg bg-[#012d1d] dark:bg-[#34d399] text-white dark:text-[#002114] text-xs font-semibold uppercase tracking-wider hover:bg-[#1b4332] dark:hover:bg-[#2dd4bf] transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
               >
                 <span className="material-symbols-outlined text-base">upload</span>
                 Upload New File
               </button>
-              <input
-                id="workspace-file-input"
-                type="file"
-                accept=".csv,.tsv,.txt"
-                className="hidden"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) handleFileUpload(file);
-                }}
-              />
 
               <button
                 onClick={handleSampleLoad}
-                className="px-3 py-1.5 rounded-lg border border-[#c1c8c2] text-xs font-semibold text-[#57615c] hover:text-[#012d1d] hover:bg-[#f4fafd] transition-all flex items-center gap-1.5"
+                className="px-3 py-2 rounded-lg border border-[#c1c8c2] dark:border-[#1b3b2f] text-xs font-semibold text-[#57615c] dark:text-[#94a3b8] hover:text-[#012d1d] dark:hover:text-[#34d399] hover:bg-[#f4fafd] dark:hover:bg-[#162f25] transition-all flex items-center gap-1.5 cursor-pointer"
               >
                 <span className="material-symbols-outlined text-base">restart_alt</span>
-                Reset Sample
+                Reload Demo
               </button>
             </div>
           </div>
@@ -456,11 +463,11 @@ export default function CSVCleaner() {
       )}
 
       {isProcessing && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 animate-in fade-in">
-          <div className="bg-white rounded-2xl p-8 text-center shadow-2xl border border-[#c1c8c2] space-y-3">
-            <div className="animate-spin w-10 h-10 border-4 border-[#012d1d] border-t-transparent rounded-full mx-auto"></div>
-            <p className="text-sm font-bold text-[#161d1f] font-display">Processing CSV in Background Worker...</p>
-            <p className="text-xs text-[#57615c]">Parsing, diagnosing, and verifying structural integrity</p>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 animate-in fade-in">
+          <div className="bg-white dark:bg-[#0e2019] rounded-2xl p-8 text-center shadow-2xl border border-[#c1c8c2] dark:border-[#1b3b2f] space-y-3 max-w-sm mx-4">
+            <div className="animate-spin w-10 h-10 border-4 border-[#012d1d] dark:border-[#34d399] border-t-transparent rounded-full mx-auto"></div>
+            <p className="text-sm font-bold text-[#161d1f] dark:text-[#f0fdf4] font-display">Processing CSV in Background Worker...</p>
+            <p className="text-xs text-[#57615c] dark:text-[#94a3b8]">Parsing, diagnosing, and verifying structural integrity</p>
           </div>
         </div>
       )}

@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Interactive Examples & Playground — CSV Cleaner" description="Try dataset transformation examples before processing your own data. Explore duplicate customer merging, whitespace trimming, and encoding repair.">
+	<Navbar activePage="examples" />
+
+	<main class="flex-grow pt-28 pb-20 px-4 md:px-8 max-w-6xl mx-auto w-full">
+		<!-- Header -->
+		<header class="text-center mb-16 mt-6">
+			<h1 class="text-4xl md:text-5xl font-extrabold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-4">Interactive Examples</h1>
+			<p class="text-lg text-[#414844] dark:text-[#94a3b8] max-w-2xl mx-auto">Explore how smart algorithms transform messy, real-world data into pristine formats. Try the playground before jumping into your own data.</p>
+		</header>
+
+		<!-- Bento Grid -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<!-- Example 1: Duplicate Customers -->
+			<article class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 flex flex-col border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-sm relative overflow-hidden group hover:border-[#012d1d] hover:dark:border-[#34d399] transition-all">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] bg-[#c1ecd4] dark:bg-[#104430] rounded-full p-2" style="font-variation-settings: 'FILL' 1;">group</span>
+					<h2 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">Duplicate Customers</h2>
+				</div>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 flex-grow leading-relaxed">Merge slightly varied entries (e.g., "Jon Doe" vs "John Doe") using fuzzy matching algorithms.</p>
+
+				<!-- Mini Table Visual -->
+				<div class="border border-[#c1c8c2] dark:border-[#1b3b2f] rounded-lg mb-6 overflow-hidden text-xs font-mono">
+					<div class="grid grid-cols-2 bg-[#e8eff1] dark:bg-[#0a1713] border-b border-[#c1c8c2] dark:border-[#1b3b2f] p-2 font-bold text-[#012d1d] dark:text-[#34d399]">
+						<div>Name</div>
+						<div>Email</div>
+					</div>
+					<div class="grid grid-cols-2 p-2 border-b border-[#c1c8c2] dark:border-[#1b3b2f] text-[#ba1a1a] dark:text-red-400 bg-[#ffdad6]/30 dark:bg-red-950/40">
+						<div>Jon Doe</div>
+						<div>jon@test.com</div>
+					</div>
+					<div class="grid grid-cols-2 p-2 text-[#012d1d] dark:text-[#34d399] bg-[#c1ecd4]/30 dark:bg-[#104430]/40">
+						<div>John Doe</div>
+						<div>jon@test.com</div>
+					</div>
+				</div>
+
+				<a href="/#workspace-container" class="w-full bg-[#1b4332] dark:bg-[#34d399] text-white dark:text-[#002114] font-semibold text-xs uppercase tracking-wider py-3 rounded-lg hover:bg-[#012d1d] dark:hover:bg-[#2dd4bf] transition-colors flex items-center justify-center gap-2">
+					<span class="material-symbols-outlined text-base">play_arrow</span>
+					Try This Example
+				</a>
+			</article>
+
+			<!-- Example 2: Messy Whitespace -->
+			<article class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 flex flex-col border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-sm relative overflow-hidden group hover:border-[#012d1d] hover:dark:border-[#34d399] transition-all">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] bg-[#c1ecd4] dark:bg-[#104430] rounded-full p-2" style="font-variation-settings: 'FILL' 1;">space_bar</span>
+					<h2 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">Messy Whitespace</h2>
+				</div>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 flex-grow leading-relaxed">Automatically trim leading, trailing, and excessive internal whitespace from text fields.</p>
+
+				<!-- Mini Table Visual -->
+				<div class="border border-[#c1c8c2] dark:border-[#1b3b2f] rounded-lg mb-6 overflow-hidden text-xs font-mono">
+					<div class="grid grid-cols-1 bg-[#e8eff1] dark:bg-[#0a1713] border-b border-[#c1c8c2] dark:border-[#1b3b2f] p-2 font-bold text-[#012d1d] dark:text-[#34d399]">
+						<div>Company Name</div>
+					</div>
+					<div class="p-2 border-b border-[#c1c8c2] dark:border-[#1b3b2f] text-[#ba1a1a] dark:text-red-400 bg-[#ffdad6]/30 dark:bg-red-950/40">
+						"&nbsp;&nbsp;Acme&nbsp;&nbsp;&nbsp;Corp&nbsp;&nbsp;"
+					</div>
+					<div class="p-2 text-[#012d1d] dark:text-[#34d399] bg-[#c1ecd4]/30 dark:bg-[#104430]/40">
+						"Acme Corp"
+					</div>
+				</div>
+
+				<a href="/#workspace-container" class="w-full bg-[#1b4332] dark:bg-[#34d399] text-white dark:text-[#002114] font-semibold text-xs uppercase tracking-wider py-3 rounded-lg hover:bg-[#012d1d] dark:hover:bg-[#2dd4bf] transition-colors flex items-center justify-center gap-2">
+					<span class="material-symbols-outlined text-base">play_arrow</span>
+					Try This Example
+				</a>
+			</article>
+
+			<!-- Example 3: Encoding Issues -->
+			<article class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 flex flex-col border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-sm relative overflow-hidden group hover:border-[#012d1d] hover:dark:border-[#34d399] transition-all lg:col-span-1 md:col-span-2">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] bg-[#c1ecd4] dark:bg-[#104430] rounded-full p-2" style="font-variation-settings: 'FILL' 1;">translate</span>
+					<h2 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">Encoding Issues</h2>
+				</div>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 flex-grow leading-relaxed">Detect and repair broken UTF-8 characters and common "mojibake" artifacts instantly.</p>
+
+				<!-- Mini Table Visual -->
+				<div class="border border-[#c1c8c2] dark:border-[#1b3b2f] rounded-lg mb-6 overflow-hidden text-xs font-mono">
+					<div class="grid grid-cols-1 bg-[#e8eff1] dark:bg-[#0a1713] border-b border-[#c1c8c2] dark:border-[#1b3b2f] p-2 font-bold text-[#012d1d] dark:text-[#34d399]">
+						<div>City</div>
+					</div>
+					<div class="p-2 border-b border-[#c1c8c2] dark:border-[#1b3b2f] text-[#ba1a1a] dark:text-red-400 bg-[#ffdad6]/30 dark:bg-red-950/40">
+						MÃ¼nchen
+					</div>
+					<div class="p-2 text-[#012d1d] dark:text-[#34d399] bg-[#c1ecd4]/30 dark:bg-[#104430]/40">
+						München
+					</div>
+				</div>
+
+				<a href="/#workspace-container" class="w-full bg-[#1b4332] dark:bg-[#34d399] text-white dark:text-[#002114] font-semibold text-xs uppercase tracking-wider py-3 rounded-lg hover:bg-[#012d1d] dark:hover:bg-[#2dd4bf] transition-colors flex items-center justify-center gap-2">
+					<span class="material-symbols-outlined text-base">play_arrow</span>
+					Try This Example
+				</a>
+			</article>
+		</div>
+	</main>
+
+	<Footer />
+</Layout>

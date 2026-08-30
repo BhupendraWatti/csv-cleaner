@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Terms of Service — CSV Cleaner" description="Terms of service and usage policy for CSV Cleaner data preparation platform.">
+	<Navbar activePage="terms" />
+
+	<main class="flex-grow pt-28 pb-20 px-4 sm:px-6 max-w-[800px] mx-auto w-full">
+		<header class="mb-10">
+			<h1 class="text-4xl md:text-5xl font-extrabold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">Terms of Service</h1>
+			<p class="text-sm text-[#414844] dark:text-[#94a3b8]">Last Updated: October 24, 2024</p>
+		</header>
+
+		<article class="space-y-8 bg-white dark:bg-[#0e2019] p-6 sm:p-10 rounded-2xl shadow-sm border border-[#c1c8c2] dark:border-[#1b3b2f]">
+			<section>
+				<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-4 flex items-center gap-2">
+					<span class="material-symbols-outlined text-[#3f6653] dark:text-[#34d399]" style="font-variation-settings: 'FILL' 1;">description</span>
+					1. Service Use
+				</h2>
+				<div class="text-sm text-[#161d1f] dark:text-[#f0fdf4] space-y-3 leading-relaxed">
+					<p>Welcome to CSV Cleaner. By accessing or using our data preparation platform, you agree to be bound by these terms. Our service is designed to provide automated data cleaning and structural normalization for your tabular data files.</p>
+					<p>You are granted a non-exclusive, non-transferable, revocable license to access and use CSV Cleaner strictly in accordance with these terms. As a condition of your use of the Site, you warrant to CSV Cleaner that you will not use the Site for any purpose that is unlawful or prohibited by these Terms.</p>
+				</div>
+			</section>
+
+			<div class="h-px w-full bg-[#c1c8c2]/40 dark:bg-[#1b3b2f] my-6"></div>
+
+			<section>
+				<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-4 flex items-center gap-2">
+					<span class="material-symbols-outlined text-[#3f6653] dark:text-[#34d399]" style="font-variation-settings: 'FILL' 1;">security</span>
+					2. User Responsibilities
+				</h2>
+				<div class="text-sm text-[#161d1f] dark:text-[#f0fdf4] space-y-3 leading-relaxed">
+					<p>You are responsible for the data you process using CSV Cleaner. While we employ robust client-side memory safety to protect your information, you must ensure that you have the right to process the data you submit.</p>
+					<ul class="list-disc pl-5 space-y-1 text-[#414844] dark:text-[#94a3b8]">
+						<li>Do not process files containing malicious code or illegal content.</li>
+						<li>Ensure compliance with relevant data protection regulations (e.g., GDPR, CCPA) for personal data included in your CSV files.</li>
+					</ul>
+				</div>
+			</section>
+
+			<div class="h-px w-full bg-[#c1c8c2]/40 dark:bg-[#1b3b2f] my-6"></div>
+
+			<section>
+				<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-4 flex items-center gap-2">
+					<span class="material-symbols-outlined text-[#3f6653] dark:text-[#34d399]" style="font-variation-settings: 'FILL' 1;">copyright</span>
+					3. Intellectual Property
+				</h2>
+				<div class="text-sm text-[#161d1f] dark:text-[#f0fdf4] space-y-3 leading-relaxed">
+					<p>All content included as part of the Service, such as text, graphics, logos, images, as well as the compilation thereof, and any software used on the Site, is the property of CSV Cleaner and protected by copyright laws.</p>
+					<p>You retain full ownership of all data you process on the platform. CSV Cleaner claims no intellectual property rights over the material you provide.</p>
+				</div>
+			</section>
+
+			<div class="h-px w-full bg-[#c1c8c2]/40 dark:bg-[#1b3b2f] my-6"></div>
+
+			<section>
+				<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-4 flex items-center gap-2">
+					<span class="material-symbols-outlined text-[#3f6653] dark:text-[#34d399]" style="font-variation-settings: 'FILL' 1;">warning</span>
+					4. Disclaimers
+				</h2>
+				<div class="text-sm text-[#161d1f] dark:text-[#f0fdf4] space-y-3 leading-relaxed">
+					<p>CSV Cleaner provides the Service on an "AS IS" and "AS AVAILABLE" basis. We make no representations or warranties of any kind, express or implied, as to the operation of the service or transformation outcomes.</p>
+					<p>While we strive for high accuracy in data transformation, you agree that CSV Cleaner will not be liable for any data loss or business interruption arising from automated cleaning algorithms.</p>
+				</div>
+			</section>
+		</article>
+	</main>
+
+	<Footer />
+</Layout>

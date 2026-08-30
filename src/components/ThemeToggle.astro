@@ -1,0 +1,70 @@
+---
+interface Props {
+  class?: string;
+  showLabel?: boolean;
+}
+
+const { class: className = '', showLabel = false } = Astro.props;
+---
+
+<button
+  type="button"
+  class={`theme-toggle-btn relative inline-flex items-center justify-center gap-2 rounded-lg border border-[#c1c8c2] dark:border-[#1b3b2f] bg-white/80 dark:bg-[#0e2019]/80 hover:bg-[#e8eff1] dark:hover:bg-[#162f25] p-2 text-[#012d1d] dark:text-[#34d399] shadow-xs backdrop-blur-sm transition-all duration-200 cursor-pointer ${className}`}
+  aria-label="Toggle color theme"
+  title="Toggle dark/light mode"
+>
+  <!-- Sun Icon (visible in Dark mode to switch to Light) -->
+  <span class="material-symbols-outlined hidden dark:inline-block text-xl transition-transform duration-300 rotate-0">
+    light_mode
+  </span>
+
+  <!-- Moon Icon (visible in Light mode to switch to Dark) -->
+  <span class="material-symbols-outlined inline-block dark:hidden text-xl transition-transform duration-300 rotate-0">
+    dark_mode
+  </span>
+
+  {showLabel && (
+    <span class="text-xs font-semibold uppercase tracking-wider">
+      <span class="dark:hidden">Dark Mode</span>
+      <span class="hidden dark:inline">Light Mode</span>
+    </span>
+  )}
+</button>
+
+<script>
+  function setupThemeToggles() {
+    const buttons = document.querySelectorAll('.theme-toggle-btn');
+    buttons.forEach((btn) => {
+      // Remove any existing listeners before attaching
+      btn.replaceWith(btn.cloneNode(true));
+    });
+
+    const refreshedButtons = document.querySelectorAll('.theme-toggle-btn');
+    refreshedButtons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isDark = document.documentElement.classList.contains('dark');
+        if (isDark) {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+          try {
+            localStorage.setItem('theme', 'light');
+          } catch (err) {}
+          window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: 'light' } }));
+        } else {
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+          try {
+            localStorage.setItem('theme', 'dark');
+          } catch (err) {}
+          window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: 'dark' } }));
+        }
+      });
+    });
+  }
+
+  // Setup on initial load and after Astro page transitions if applicable
+  setupThemeToggles();
+  document.addEventListener('astro:page-load', setupThemeToggles);
+  document.addEventListener('astro:after-swap', setupThemeToggles);
+</script>

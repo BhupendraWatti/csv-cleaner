@@ -8,7 +8,7 @@ import ErrorBoundary from '../components/csv/ErrorBoundary';
 <Layout title="CSV Cleaner Workspace — In-Browser Diagnostic & Cleaning Tool">
 	<Navbar activePage="home" />
 
-	<main class="flex-grow pt-20 bg-[#f4fafd] min-h-screen">
+	<main class="flex-grow pt-20 bg-[#f4fafd] dark:bg-[#06120e] min-h-screen transition-colors duration-200">
 		<section class="max-w-7xl mx-auto px-6 py-6 space-y-8">
 			<h1 class="sr-only">CSV Cleaning Workspace</h1>
 			<ErrorBoundary client:only="react">

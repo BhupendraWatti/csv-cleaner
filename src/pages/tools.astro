@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="CSV Tools Directory — CSV Cleaner" description="A comprehensive suite of tools designed to maintain the hygiene and structural integrity of your datasets. Select a utility to begin.">
+	<Navbar activePage="tools" />
+
+	<main class="flex-grow pt-28 pb-20 px-4 md:px-8 max-w-6xl mx-auto w-full">
+		<!-- Hero Section -->
+		<div class="text-center mb-16 mt-6">
+			<h1 class="text-4xl md:text-5xl font-extrabold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-4">CSV Tools Directory</h1>
+			<p class="text-lg text-[#414844] dark:text-[#94a3b8] max-w-2xl mx-auto">
+				A comprehensive suite of tools designed to maintain the hygiene and structural integrity of your datasets. Select a specific utility to begin processing your data.
+			</p>
+		</div>
+
+		<!-- Tools Bento Grid -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<!-- Tool Card: Full CSV Cleaner -->
+			<div class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] flex flex-col h-full group relative overflow-hidden shadow-sm hover:border-[#012d1d] hover:dark:border-[#34d399] hover:shadow-md transition-all">
+				<div class="w-12 h-12 bg-[#1b4332] dark:bg-[#104430] text-white dark:text-[#34d399] rounded-xl flex items-center justify-center mb-4">
+					<span class="material-symbols-outlined text-2xl">mop</span>
+				</div>
+				<h3 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">CSV Cleaner</h3>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 flex-grow leading-relaxed">
+					The complete pipeline. Automatically detect issues, standardize formatting, and apply multiple cleaning rules in a single pass.
+				</p>
+				<a href="/#workspace-container" class="w-full bg-[#012d1d] dark:bg-[#34d399] text-white dark:text-[#002114] font-semibold text-xs uppercase tracking-wider py-3 rounded-lg hover:bg-[#1b4332] dark:hover:bg-[#2dd4bf] transition-colors flex items-center justify-center gap-2">
+					<span>Launch Tool</span>
+					<span class="material-symbols-outlined text-base">arrow_forward</span>
+				</a>
+			</div>
+
+			<!-- Tool Card: Remove Duplicates -->
+			<div class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] flex flex-col h-full group relative overflow-hidden shadow-sm hover:border-[#012d1d] hover:dark:border-[#34d399] hover:shadow-md transition-all">
+				<div class="w-12 h-12 bg-[#d8e2dc] dark:bg-[#162f25] text-[#012d1d] dark:text-[#34d399] rounded-xl flex items-center justify-center mb-4">
+					<span class="material-symbols-outlined text-2xl">difference</span>
+				</div>
+				<h3 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">Remove Duplicates</h3>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 flex-grow leading-relaxed">
+					Identify and eliminate exact or fuzzy duplicate rows across your dataset or based on specific key columns.
+				</p>
+				<a href="/#workspace-container" class="w-full bg-[#e8eff1] dark:bg-[#162f25] text-[#012d1d] dark:text-[#34d399] font-semibold text-xs uppercase tracking-wider py-3 rounded-lg hover:bg-[#d8e2dc] dark:hover:bg-[#1c3c2f] transition-colors flex items-center justify-center gap-2">
+					<span>Launch Tool</span>
+					<span class="material-symbols-outlined text-base">arrow_forward</span>
+				</a>
+			</div>
+
+			<!-- Tool Card: Remove Empty Rows -->
+			<div class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] flex flex-col h-full group relative overflow-hidden shadow-sm hover:border-[#012d1d] hover:dark:border-[#34d399] hover:shadow-md transition-all">
+				<div class="w-12 h-12 bg-[#ffdad6] dark:bg-red-950/60 text-[#ba1a1a] dark:text-red-400 rounded-xl flex items-center justify-center mb-4">
+					<span class="material-symbols-outlined text-2xl">delete_sweep</span>
+				</div>
+				<h3 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">Remove Empty Rows</h3>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 flex-grow leading-relaxed">
+					Quickly purge completely blank rows or rows missing crucial data points to condense your file size.
+				</p>
+				<a href="/#workspace-container" class="w-full bg-[#e8eff1] dark:bg-[#162f25] text-[#012d1d] dark:text-[#34d399] font-semibold text-xs uppercase tracking-wider py-3 rounded-lg hover:bg-[#d8e2dc] dark:hover:bg-[#1c3c2f] transition-colors flex items-center justify-center gap-2">
+					<span>Launch Tool</span>
+					<span class="material-symbols-outlined text-base">arrow_forward</span>
+				</a>
+			</div>
+
+			<!-- Tool Card: Remove Empty Columns -->
+			<div class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] flex flex-col h-full group relative overflow-hidden shadow-sm hover:border-[#012d1d] hover:dark:border-[#34d399] hover:shadow-md transition-all">
+				<div class="w-12 h-12 bg-[#ffdcc4] dark:bg-amber-950/60 text-[#5f2f00] dark:text-amber-400 rounded-xl flex items-center justify-center mb-4">
+					<span class="material-symbols-outlined text-2xl">view_week</span>
+				</div>
+				<h3 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">Remove Empty Columns</h3>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 flex-grow leading-relaxed">
+					Strip away redundant, entirely blank columns that clutter your workspace and bloat spreadsheet size.
+				</p>
+				<a href="/#workspace-container" class="w-full bg-[#e8eff1] dark:bg-[#162f25] text-[#012d1d] dark:text-[#34d399] font-semibold text-xs uppercase tracking-wider py-3 rounded-lg hover:bg-[#d8e2dc] dark:hover:bg-[#1c3c2f] transition-colors flex items-center justify-center gap-2">
+					<span>Launch Tool</span>
+					<span class="material-symbols-outlined text-base">arrow_forward</span>
+				</a>
+			</div>
+
+			<!-- Tool Card: Trim Whitespace -->
+			<div class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] flex flex-col h-full group relative overflow-hidden shadow-sm hover:border-[#012d1d] hover:dark:border-[#34d399] hover:shadow-md transition-all">
+				<div class="w-12 h-12 bg-[#c1ecd4] dark:bg-[#104430] text-[#002114] dark:text-[#34d399] rounded-xl flex items-center justify-center mb-4">
+					<span class="material-symbols-outlined text-2xl">format_clear</span>
+				</div>
+				<h3 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">Trim Whitespace</h3>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 flex-grow leading-relaxed">
+					Remove leading, trailing, and excessive internal spaces from cell values to ensure clean string matching.
+				</p>
+				<a href="/#workspace-container" class="w-full bg-[#e8eff1] dark:bg-[#162f25] text-[#012d1d] dark:text-[#34d399] font-semibold text-xs uppercase tracking-wider py-3 rounded-lg hover:bg-[#d8e2dc] dark:hover:bg-[#1c3c2f] transition-colors flex items-center justify-center gap-2">
+					<span>Launch Tool</span>
+					<span class="material-symbols-outlined text-base">arrow_forward</span>
+				</a>
+			</div>
+
+			<!-- Tool Card: CSV Validator -->
+			<div class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] flex flex-col h-full group relative overflow-hidden shadow-sm hover:border-[#012d1d] hover:dark:border-[#34d399] hover:shadow-md transition-all">
+				<div class="w-12 h-12 bg-[#dde4e6] dark:bg-[#162f25] text-[#161d1f] dark:text-[#34d399] rounded-xl flex items-center justify-center mb-4">
+					<span class="material-symbols-outlined text-2xl">fact_check</span>
+				</div>
+				<h3 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">CSV Validator</h3>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 flex-grow leading-relaxed">
+					Check file structure, encoding, and delimiter consistency before importing data into external systems.
+				</p>
+				<a href="/#workspace-container" class="w-full bg-[#e8eff1] dark:bg-[#162f25] text-[#012d1d] dark:text-[#34d399] font-semibold text-xs uppercase tracking-wider py-3 rounded-lg hover:bg-[#d8e2dc] dark:hover:bg-[#1c3c2f] transition-colors flex items-center justify-center gap-2">
+					<span>Launch Tool</span>
+					<span class="material-symbols-outlined text-base">arrow_forward</span>
+				</a>
+			</div>
+		</div>
+	</main>
+
+	<Footer />
+</Layout>

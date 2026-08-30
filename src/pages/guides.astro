@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Guides & Resources — CSV Cleaner" description="Master your data with tutorials, best practices, and deep dives into CSV management. A calm space for learning.">
+	<Navbar activePage="guides" />
+
+	<main class="max-w-6xl mx-auto px-6 py-16 pt-28 flex flex-col gap-12">
+		<!-- Header -->
+		<header class="flex flex-col gap-3 items-center text-center max-w-2xl mx-auto">
+			<h1 class="text-4xl md:text-5xl font-extrabold text-[#012d1d] dark:text-[#f0fdf4] font-display">Guides & Resources</h1>
+			<p class="text-lg text-[#414844] dark:text-[#94a3b8]">Master your data with our collection of tutorials, best practices, and deep dives into CSV management. A calm space for learning.</p>
+		</header>
+
+		<!-- Featured Article -->
+		<section class="bg-white dark:bg-[#0e2019] rounded-2xl shadow-sm border border-[#c1c8c2] dark:border-[#1b3b2f] overflow-hidden flex flex-col md:flex-row group cursor-pointer transition-all hover:-translate-y-1">
+			<div class="md:w-1/2 min-h-[260px] bg-[#e8eff1] dark:bg-[#0a1713] relative overflow-hidden flex items-center justify-center p-8 bg-gradient-to-br from-[#012d1d]/10 dark:from-[#34d399]/10 to-[#3f6653]/10 dark:to-[#104430]/30">
+				<div class="text-center flex flex-col items-center gap-3">
+					<div class="size-16 rounded-2xl bg-[#012d1d] dark:bg-[#34d399] text-white dark:text-[#002114] flex items-center justify-center shadow-md">
+						<span class="material-symbols-outlined text-3xl">auto_stories</span>
+					</div>
+					<span class="text-xs font-mono tracking-widest text-[#012d1d] dark:text-[#34d399] uppercase font-bold">Featured Guide</span>
+				</div>
+			</div>
+			<div class="md:w-1/2 p-8 flex flex-col justify-center gap-4">
+				<span class="text-xs font-semibold uppercase tracking-wider text-[#3f6653] dark:text-[#34d399] bg-[#c1ecd4] dark:bg-[#104430] px-3 py-1 rounded-full self-start">Comprehensive</span>
+				<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">The Complete CSV Cleaning Guide</h2>
+				<p class="text-[#414844] dark:text-[#94a3b8] text-sm leading-relaxed">A walkthrough from identifying common encoding issues to automating row deduplication. Learn the core principles of maintaining healthy, predictable datasets in any environment.</p>
+				<div class="flex items-center gap-2 text-[#012d1d] dark:text-[#34d399] font-semibold text-xs uppercase tracking-wider group-hover:gap-3 transition-all pt-2">
+					<span>Read Article</span>
+					<span class="material-symbols-outlined text-base">arrow_forward</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- Filter Bar -->
+		<section class="flex flex-wrap items-center gap-3 border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-6">
+			<span class="text-xs font-semibold uppercase tracking-wider text-[#414844] dark:text-[#94a3b8] mr-2">Filter by Topic:</span>
+			<button class="bg-[#012d1d] dark:bg-[#34d399] text-white dark:text-[#002114] text-xs font-semibold px-4 py-2 rounded-full shadow-xs cursor-pointer">All Topics</button>
+			<button class="bg-[#e8eff1] dark:bg-[#162f25] hover:bg-[#dde4e6] dark:hover:bg-[#1c3c2f] text-[#414844] dark:text-[#94a3b8] text-xs font-semibold px-4 py-2 rounded-full transition-colors cursor-pointer">CSV Basics</button>
+			<button class="bg-[#e8eff1] dark:bg-[#162f25] hover:bg-[#dde4e6] dark:hover:bg-[#1c3c2f] text-[#414844] dark:text-[#94a3b8] text-xs font-semibold px-4 py-2 rounded-full transition-colors cursor-pointer">Cleaning</button>
+			<button class="bg-[#e8eff1] dark:bg-[#162f25] hover:bg-[#dde4e6] dark:hover:bg-[#1c3c2f] text-[#414844] dark:text-[#94a3b8] text-xs font-semibold px-4 py-2 rounded-full transition-colors cursor-pointer">Excel & CSV</button>
+			<button class="bg-[#e8eff1] dark:bg-[#162f25] hover:bg-[#dde4e6] dark:hover:bg-[#1c3c2f] text-[#414844] dark:text-[#94a3b8] text-xs font-semibold px-4 py-2 rounded-full transition-colors cursor-pointer">CRM Imports</button>
+		</section>
+
+		<!-- Grid of Cards -->
+		<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<!-- Card 1 -->
+			<article class="bg-white dark:bg-[#0e2019] rounded-xl border border-[#c1c8c2] dark:border-[#1b3b2f] overflow-hidden flex flex-col group cursor-pointer hover:border-[#3f6653] hover:dark:border-[#34d399] hover:shadow-md transition-all">
+				<div class="h-44 bg-[#e8eff1] dark:bg-[#0a1713] flex items-center justify-center p-6 bg-gradient-to-br from-[#e8eff1] dark:from-[#0a1713] to-[#d8e2dc] dark:to-[#162f25]">
+					<span class="material-symbols-outlined text-4xl text-[#012d1d] dark:text-[#34d399]">description</span>
+				</div>
+				<div class="p-6 flex flex-col gap-2 flex-grow">
+					<span class="text-xs font-semibold uppercase tracking-wider text-[#3f6653] dark:text-[#34d399]">CSV Basics</span>
+					<h3 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">What Is a CSV File?</h3>
+					<p class="text-sm text-[#414844] dark:text-[#94a3b8] flex-grow leading-relaxed">Understand the foundational structure of Comma Separated Values, why they are universal, and how they differ from Excel files.</p>
+				</div>
+			</article>
+
+			<!-- Card 2 -->
+			<article class="bg-white dark:bg-[#0e2019] rounded-xl border border-[#c1c8c2] dark:border-[#1b3b2f] overflow-hidden flex flex-col group cursor-pointer hover:border-[#3f6653] hover:dark:border-[#34d399] hover:shadow-md transition-all">
+				<div class="h-44 bg-[#e8eff1] dark:bg-[#0a1713] flex items-center justify-center p-6 bg-gradient-to-br from-[#e8eff1] dark:from-[#0a1713] to-[#c1ecd4]/50 dark:to-[#104430]/40">
+					<span class="material-symbols-outlined text-4xl text-[#012d1d] dark:text-[#34d399]">difference</span>
+				</div>
+				<div class="p-6 flex flex-col gap-2 flex-grow">
+					<span class="text-xs font-semibold uppercase tracking-wider text-[#3f6653] dark:text-[#34d399]">Cleaning</span>
+					<h3 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">How to Remove Duplicate Rows</h3>
+					<p class="text-sm text-[#414844] dark:text-[#94a3b8] flex-grow leading-relaxed">A step-by-step guide to identifying and safely eliminating exact duplicates and fuzzy matches without losing critical information.</p>
+				</div>
+			</article>
+
+			<!-- Card 3 -->
+			<article class="bg-white dark:bg-[#0e2019] rounded-xl border border-[#c1c8c2] dark:border-[#1b3b2f] overflow-hidden flex flex-col group cursor-pointer hover:border-[#3f6653] hover:dark:border-[#34d399] hover:shadow-md transition-all">
+				<div class="h-44 bg-[#e8eff1] dark:bg-[#0a1713] flex items-center justify-center p-6 bg-gradient-to-br from-[#e8eff1] dark:from-[#0a1713] to-[#ffdcc4]/50 dark:to-[#451a03]/40">
+					<span class="material-symbols-outlined text-4xl text-[#012d1d] dark:text-[#34d399]">grid_on</span>
+				</div>
+				<div class="p-6 flex flex-col gap-2 flex-grow">
+					<span class="text-xs font-semibold uppercase tracking-wider text-[#3f6653] dark:text-[#34d399]">Excel & CSV</span>
+					<h3 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">Fixing Leading Zeros</h3>
+					<p class="text-sm text-[#414844] dark:text-[#94a3b8] flex-grow leading-relaxed">Stop Excel from dropping leading zeros from zip codes and phone numbers. Learn how to preserve string formatting perfectly.</p>
+				</div>
+			</article>
+
+			<!-- Card 4 -->
+			<article class="bg-white dark:bg-[#0e2019] rounded-xl border border-[#c1c8c2] dark:border-[#1b3b2f] overflow-hidden flex flex-col group cursor-pointer hover:border-[#3f6653] hover:dark:border-[#34d399] hover:shadow-md transition-all">
+				<div class="h-44 bg-[#e8eff1] dark:bg-[#0a1713] flex items-center justify-center p-6 bg-gradient-to-br from-[#e8eff1] dark:from-[#0a1713] to-[#a5d0b9]/40 dark:to-[#104430]/40">
+					<span class="material-symbols-outlined text-4xl text-[#012d1d] dark:text-[#34d399]">cloud_upload</span>
+				</div>
+				<div class="p-6 flex flex-col gap-2 flex-grow">
+					<span class="text-xs font-semibold uppercase tracking-wider text-[#3f6653] dark:text-[#34d399]">CRM Imports</span>
+					<h3 class="text-xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">Preparing Data for Salesforce</h3>
+					<p class="text-sm text-[#414844] dark:text-[#94a3b8] flex-grow leading-relaxed">Ensure smooth imports for Salesforce and HubSpot contacts. Learn header requirements and validation rules for clean uploads.</p>
+				</div>
+			</article>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>

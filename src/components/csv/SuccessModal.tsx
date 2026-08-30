@@ -30,7 +30,7 @@ export default function SuccessModal({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="items-center text-center">
-          <div className="flex size-16 items-center justify-center rounded-full bg-[#c1ecd4] text-primary">
+          <div className="flex size-16 items-center justify-center rounded-full bg-[#c1ecd4] dark:bg-[#104430] text-primary dark:text-[#34d399]">
             <CheckCircle2Icon className="size-8" aria-hidden="true" />
           </div>
           <DialogTitle>Export Complete</DialogTitle>

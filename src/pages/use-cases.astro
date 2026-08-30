@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Use Cases — CSV Cleaner" description="See how different teams transform chaotic spreadsheets into pristine datasets with a single click. Marketing, CRM, surveys, and business reports.">
+	<Navbar activePage="use-cases" />
+
+	<main class="flex-grow pt-28 pb-20 px-4 md:px-8 max-w-6xl mx-auto w-full">
+		<!-- Header -->
+		<header class="text-center mb-16 max-w-3xl mx-auto">
+			<h1 class="text-4xl md:text-5xl font-extrabold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-4">Clarity in Every Context</h1>
+			<p class="text-lg text-[#414844] dark:text-[#94a3b8] leading-relaxed">See how different teams transform chaotic spreadsheets into pristine datasets with a single click. From marketing lists to CRM exports, CSV Cleaner handles the heavy lifting.</p>
+		</header>
+
+		<!-- Cards Grid -->
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+			<!-- Marketing Lists -->
+			<section class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 md:p-8 border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-sm flex flex-col h-full hover:border-[#012d1d] hover:dark:border-[#34d399] transition-all">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-3xl" data-icon="campaign">campaign</span>
+					<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">Marketing Lists</h2>
+				</div>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 leading-relaxed">Consolidate scattered event lists and newsletter signups. Standardize casing, validate emails, and remove duplicates before import.</p>
+				<div class="flex-grow space-y-4">
+					<div>
+						<span class="text-xs font-semibold uppercase tracking-wider text-[#ba1a1a] dark:text-red-400 mb-1.5 block">Problem: Messy Data</span>
+						<div class="bg-[#f4fafd] dark:bg-[#0a1713] rounded-xl p-3 border border-[#c1c8c2]/60 dark:border-[#1b3b2f] font-mono text-xs text-[#414844] dark:text-[#f0fdf4] overflow-x-auto whitespace-pre">Name,Email,Company
+JOhn dOe,john@example .com,Acme corp
+jane smith,jane@example.com,Acme Corp
+john doe,JOhn@EXAMPLE.com,Acme Corp</div>
+					</div>
+					<div>
+						<span class="text-xs font-semibold uppercase tracking-wider text-[#012d1d] dark:text-[#34d399] mb-1.5 block">Solution: Clean Data</span>
+						<div class="bg-[#c1ecd4]/20 dark:bg-[#104430]/30 rounded-xl p-3 border border-[#a5d0b9] dark:border-[#34d399]/40 font-mono text-xs text-[#012d1d] dark:text-[#34d399] overflow-x-auto whitespace-pre">Name,Email,Company
+John Doe,john@example.com,Acme Corp
+Jane Smith,jane@example.com,Acme Corp</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- CRM Exports -->
+			<section class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 md:p-8 border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-sm flex flex-col h-full hover:border-[#012d1d] hover:dark:border-[#34d399] transition-all">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-3xl" data-icon="manage_accounts">manage_accounts</span>
+					<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">CRM Exports</h2>
+				</div>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 leading-relaxed">Prepare Salesforce or HubSpot exports for reporting. Normalize date formats, strip HTML tags from notes, and split combined fields.</p>
+				<div class="flex-grow space-y-4">
+					<div>
+						<span class="text-xs font-semibold uppercase tracking-wider text-[#ba1a1a] dark:text-red-400 mb-1.5 block">Problem: Inconsistent Formats</span>
+						<div class="bg-[#f4fafd] dark:bg-[#0a1713] rounded-xl p-3 border border-[#c1c8c2]/60 dark:border-[#1b3b2f] font-mono text-xs text-[#414844] dark:text-[#f0fdf4] overflow-x-auto whitespace-pre">Contact,Last_Touch,Notes
+Sarah Jenkins,12/04/23,&lt;p&gt;Called left VM&lt;/p&gt;
+Mike T.,2023-04-12,emailed pricing</div>
+					</div>
+					<div>
+						<span class="text-xs font-semibold uppercase tracking-wider text-[#012d1d] dark:text-[#34d399] mb-1.5 block">Solution: Standardized Output</span>
+						<div class="bg-[#c1ecd4]/20 dark:bg-[#104430]/30 rounded-xl p-3 border border-[#a5d0b9] dark:border-[#34d399]/40 font-mono text-xs text-[#012d1d] dark:text-[#34d399] overflow-x-auto whitespace-pre">Contact,Last_Touch,Notes
+Sarah Jenkins,2023-04-12,Called left VM
+Mike T,2023-04-12,Emailed pricing</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Survey Results -->
+			<section class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 md:p-8 border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-sm flex flex-col h-full hover:border-[#012d1d] hover:dark:border-[#34d399] transition-all">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-3xl" data-icon="poll">poll</span>
+					<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">Survey Results</h2>
+				</div>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 leading-relaxed">Clean up free-text responses from Typeform or Google Forms. Map multiple choice variations to standard values.</p>
+				<div class="flex-grow space-y-4">
+					<div>
+						<span class="text-xs font-semibold uppercase tracking-wider text-[#ba1a1a] dark:text-red-400 mb-1.5 block">Problem: Free-text Chaos</span>
+						<div class="bg-[#f4fafd] dark:bg-[#0a1713] rounded-xl p-3 border border-[#c1c8c2]/60 dark:border-[#1b3b2f] font-mono text-xs text-[#414844] dark:text-[#f0fdf4] overflow-x-auto whitespace-pre">ID,Satisfaction,Feedback
+1,Very Satisfied  ,Great tool !
+2,v. satisfied,N/A
+3,Neutral,   ok</div>
+					</div>
+					<div>
+						<span class="text-xs font-semibold uppercase tracking-wider text-[#012d1d] dark:text-[#34d399] mb-1.5 block">Solution: Categorized Values</span>
+						<div class="bg-[#c1ecd4]/20 dark:bg-[#104430]/30 rounded-xl p-3 border border-[#a5d0b9] dark:border-[#34d399]/40 font-mono text-xs text-[#012d1d] dark:text-[#34d399] overflow-x-auto whitespace-pre">ID,Satisfaction,Feedback
+1,Very Satisfied,Great tool!
+2,Very Satisfied,
+3,Neutral,Ok</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Business Reports -->
+			<section class="bg-white dark:bg-[#0e2019] rounded-2xl p-6 md:p-8 border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-sm flex flex-col h-full hover:border-[#012d1d] hover:dark:border-[#34d399] transition-all">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-3xl" data-icon="insert_chart">insert_chart</span>
+					<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">Business Reports</h2>
+				</div>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6 leading-relaxed">Consolidate financial data from legacy systems. Fix broken encodings, handle missing values, and normalize currency symbols.</p>
+				<div class="flex-grow space-y-4">
+					<div>
+						<span class="text-xs font-semibold uppercase tracking-wider text-[#ba1a1a] dark:text-red-400 mb-1.5 block">Problem: Legacy Encoding</span>
+						<div class="bg-[#f4fafd] dark:bg-[#0a1713] rounded-xl p-3 border border-[#c1c8c2]/60 dark:border-[#1b3b2f] font-mono text-xs text-[#414844] dark:text-[#f0fdf4] overflow-x-auto whitespace-pre">Date,Revenue,Region
+Jan-24,$1,200.50,NA
+Feb-24,1500,EU
+Mar-24, 1,400.00 ,APAC</div>
+					</div>
+					<div>
+						<span class="text-xs font-semibold uppercase tracking-wider text-[#012d1d] dark:text-[#34d399] mb-1.5 block">Solution: Clean Numerics</span>
+						<div class="bg-[#c1ecd4]/20 dark:bg-[#104430]/30 rounded-xl p-3 border border-[#a5d0b9] dark:border-[#34d399]/40 font-mono text-xs text-[#012d1d] dark:text-[#34d399] overflow-x-auto whitespace-pre">Date,Revenue,Region
+2024-01-01,1200.50,NA
+2024-02-01,1500.00,EU
+2024-03-01,1400.00,APAC</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<!-- Action CTAs -->
+		<div class="mt-16 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
+			<a href="/#workspace-container" class="bg-[#012d1d] dark:bg-[#34d399] text-white dark:text-[#002114] px-6 py-3.5 rounded-lg font-semibold text-xs uppercase tracking-wider hover:bg-[#1b4332] dark:hover:bg-[#2dd4bf] transition-colors shadow-xs">Clean My CSV</a>
+			<a href="/guides" class="bg-[#d8e2dc] dark:bg-[#162f25] text-[#012d1d] dark:text-[#34d399] px-6 py-3.5 rounded-lg font-semibold text-xs uppercase tracking-wider hover:bg-[#bfc9c3] dark:hover:bg-[#1c3c2f] transition-colors">View Guides</a>
+		</div>
+	</main>
+
+	<Footer />
+</Layout>

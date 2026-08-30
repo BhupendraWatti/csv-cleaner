@@ -1,52 +1,53 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Features — CSV Cleaner">
 	<Navbar activePage="features" showHealthBadge={false} />
 
-	<main class="flex-grow pt-20">
+	<main class="flex-grow pt-20 bg-[#f4fafd] dark:bg-[#06120e] transition-colors duration-200">
 		<!-- Hero Section -->
 		<section class="relative pt-12 pb-12 px-6 text-center">
 			<div class="max-w-4xl mx-auto">
-				<h1 class="text-4xl sm:text-5xl font-extrabold text-[#012d1d] font-display mb-4">
+				<h1 class="text-4xl sm:text-5xl font-extrabold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-4">
 					Everything you need to fix your data.
 				</h1>
-				<p class="text-lg text-[#414844] font-body max-w-2xl mx-auto mb-8">
+				<p class="text-lg text-[#414844] dark:text-[#94a3b8] font-body max-w-2xl mx-auto mb-8">
 					A calm, powerful toolkit designed to intelligently detect errors, safely remove anomalies, and restore structure to your most unwieldy spreadsheets.
 				</p>
 			</div>
 		</section>
 
 		<!-- Feature Groups Layout -->
-		<section class="py-12 px-6 bg-white">
+		<section class="py-12 px-6 bg-white dark:bg-[#0a1713] border-t border-[#c1c8c2]/40 dark:border-[#1b3b2f]">
 			<div class="max-w-6xl mx-auto space-y-16">
 				<!-- Group 1: Detection -->
 				<div>
-					<div class="mb-8 border-b border-[#c1c8c2] pb-2 inline-block">
-						<h2 class="text-2xl font-bold text-[#012d1d] font-display flex items-center gap-2">
-							<span class="material-symbols-outlined text-[#1b4332]" style="font-variation-settings: 'FILL' 1;">troubleshoot</span>
+					<div class="mb-8 border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-2 inline-block">
+						<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display flex items-center gap-2">
+							<span class="material-symbols-outlined text-[#1b4332] dark:text-[#34d399]" style="font-variation-settings: 'FILL' 1;">troubleshoot</span>
 							Detection
 						</h2>
 					</div>
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-						<div class="bg-[#f4fafd] rounded-xl p-6 border border-[#c1c8c2] shadow-ambient hover:border-[#a5d0b9] transition-all">
-							<div class="w-full h-40 bg-[#e8eff1] rounded-lg mb-4 flex items-center justify-center">
-								<span class="material-symbols-outlined text-5xl text-[#012d1d]/40">search_check</span>
+						<div class="bg-[#f4fafd] dark:bg-[#0e2019] rounded-xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-ambient hover:border-[#a5d0b9] dark:hover:border-[#34d399] transition-all">
+							<div class="w-full h-40 bg-[#e8eff1] dark:bg-[#162f25] rounded-lg mb-4 flex items-center justify-center">
+								<span class="material-symbols-outlined text-5xl text-[#012d1d]/40 dark:text-[#34d399]/60">search_check</span>
 							</div>
-							<h3 class="text-xl font-bold text-[#161d1f] font-display mb-2">Smart Issue Detection</h3>
-							<p class="text-sm text-[#414844] leading-relaxed">
+							<h3 class="text-xl font-bold text-[#161d1f] dark:text-[#f0fdf4] font-display mb-2">Smart Issue Detection</h3>
+							<p class="text-sm text-[#414844] dark:text-[#94a3b8] leading-relaxed">
 								Automatically scans your entire dataset to identify common anomalies like mixed data types, trailing spaces, and corrupted characters before you even begin cleaning.
 							</p>
 						</div>
 
-						<div class="bg-[#f4fafd] rounded-xl p-6 border border-[#c1c8c2] shadow-ambient hover:border-[#a5d0b9] transition-all">
-							<div class="w-full h-40 bg-[#e8eff1] rounded-lg mb-4 flex items-center justify-center">
-								<span class="material-symbols-outlined text-5xl text-[#012d1d]/40">fact_check</span>
+						<div class="bg-[#f4fafd] dark:bg-[#0e2019] rounded-xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-ambient hover:border-[#a5d0b9] dark:hover:border-[#34d399] transition-all">
+							<div class="w-full h-40 bg-[#e8eff1] dark:bg-[#162f25] rounded-lg mb-4 flex items-center justify-center">
+								<span class="material-symbols-outlined text-5xl text-[#012d1d]/40 dark:text-[#34d399]/60">fact_check</span>
 							</div>
-							<h3 class="text-xl font-bold text-[#161d1f] font-display mb-2">CSV Structure Validation</h3>
-							<p class="text-sm text-[#414844] leading-relaxed">
+							<h3 class="text-xl font-bold text-[#161d1f] dark:text-[#f0fdf4] font-display mb-2">CSV Structure Validation</h3>
+							<p class="text-sm text-[#414844] dark:text-[#94a3b8] leading-relaxed">
 								Ensures your file adheres to strict CSV formatting rules, instantly flagging broken rows, unclosed quotes, or mismatched column counts that break downstream tools.
 							</p>
 						</div>
@@ -55,52 +56,52 @@ import Navbar from '../components/Navbar.astro';
 
 				<!-- Group 2: Cleaning -->
 				<div>
-					<div class="mb-8 border-b border-[#c1c8c2] pb-2 inline-block">
-						<h2 class="text-2xl font-bold text-[#012d1d] font-display flex items-center gap-2">
-							<span class="material-symbols-outlined text-[#1b4332]" style="font-variation-settings: 'FILL' 1;">cleaning_services</span>
+					<div class="mb-8 border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-2 inline-block">
+						<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display flex items-center gap-2">
+							<span class="material-symbols-outlined text-[#1b4332] dark:text-[#34d399]" style="font-variation-settings: 'FILL' 1;">cleaning_services</span>
 							Cleaning & Transformation
 						</h2>
 					</div>
 					<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-						<div class="md:col-span-8 bg-[#f4fafd] rounded-xl p-6 border border-[#c1c8c2] shadow-ambient hover:border-[#a5d0b9] transition-all flex flex-col md:flex-row gap-6 items-center">
-							<div class="w-full md:w-1/2 h-44 bg-[#e8eff1] rounded-lg flex items-center justify-center">
-								<span class="material-symbols-outlined text-5xl text-[#012d1d]/40">security</span>
+						<div class="md:col-span-8 bg-[#f4fafd] dark:bg-[#0e2019] rounded-xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-ambient hover:border-[#a5d0b9] dark:hover:border-[#34d399] transition-all flex flex-col md:flex-row gap-6 items-center">
+							<div class="w-full md:w-1/2 h-44 bg-[#e8eff1] dark:bg-[#162f25] rounded-lg flex items-center justify-center">
+								<span class="material-symbols-outlined text-5xl text-[#012d1d]/40 dark:text-[#34d399]/60">security</span>
 							</div>
 							<div class="w-full md:w-1/2">
-								<h3 class="text-xl font-bold text-[#161d1f] font-display mb-2">Safe Non-Destructive Cleaning</h3>
-								<p class="text-sm text-[#414844] leading-relaxed">
+								<h3 class="text-xl font-bold text-[#161d1f] dark:text-[#f0fdf4] font-display mb-2">Safe Non-Destructive Cleaning</h3>
+								<p class="text-sm text-[#414844] dark:text-[#94a3b8] leading-relaxed">
 									Every transformation is non-destructive. Changes are applied securely in your browser, ensuring your original data is never lost or compromised during the cleanup process.
 								</p>
 							</div>
 						</div>
 
-						<div class="md:col-span-4 bg-[#f4fafd] rounded-xl p-6 border border-[#c1c8c2] shadow-ambient hover:border-[#a5d0b9] transition-all flex flex-col justify-center">
-							<div class="w-full h-28 bg-[#e8eff1] rounded-lg mb-4 flex items-center justify-center">
-								<span class="material-symbols-outlined text-4xl text-[#012d1d]/40">file_copy</span>
+						<div class="md:col-span-4 bg-[#f4fafd] dark:bg-[#0e2019] rounded-xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-ambient hover:border-[#a5d0b9] dark:hover:border-[#34d399] transition-all flex flex-col justify-center">
+							<div class="w-full h-28 bg-[#e8eff1] dark:bg-[#162f25] rounded-lg mb-4 flex items-center justify-center">
+								<span class="material-symbols-outlined text-4xl text-[#012d1d]/40 dark:text-[#34d399]/60">file_copy</span>
 							</div>
-							<h3 class="text-lg font-bold text-[#161d1f] font-display mb-1">Duplicate Removal</h3>
-							<p class="text-xs text-[#414844] leading-relaxed">
+							<h3 class="text-lg font-bold text-[#161d1f] dark:text-[#f0fdf4] font-display mb-1">Duplicate Removal</h3>
+							<p class="text-xs text-[#414844] dark:text-[#94a3b8] leading-relaxed">
 								Intelligently identify and remove duplicate rows based on exact matches or key columns.
 							</p>
 						</div>
 
-						<div class="md:col-span-4 bg-[#f4fafd] rounded-xl p-6 border border-[#c1c8c2] shadow-ambient hover:border-[#a5d0b9] transition-all flex flex-col justify-center">
-							<div class="w-full h-28 bg-[#e8eff1] rounded-lg mb-4 flex items-center justify-center">
-								<span class="material-symbols-outlined text-4xl text-[#012d1d]/40">format_align_center</span>
+						<div class="md:col-span-4 bg-[#f4fafd] dark:bg-[#0e2019] rounded-xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-ambient hover:border-[#a5d0b9] dark:hover:border-[#34d399] transition-all flex flex-col justify-center">
+							<div class="w-full h-28 bg-[#e8eff1] dark:bg-[#162f25] rounded-lg mb-4 flex items-center justify-center">
+								<span class="material-symbols-outlined text-4xl text-[#012d1d]/40 dark:text-[#34d399]/60">format_align_center</span>
 							</div>
-							<h3 class="text-lg font-bold text-[#161d1f] font-display mb-1">Whitespace Trimming</h3>
-							<p class="text-xs text-[#414844] leading-relaxed">
+							<h3 class="text-lg font-bold text-[#161d1f] dark:text-[#f0fdf4] font-display mb-1">Whitespace Trimming</h3>
+							<p class="text-xs text-[#414844] dark:text-[#94a3b8] leading-relaxed">
 								Strip leading, trailing, and excessive internal whitespace from all cells automatically.
 							</p>
 						</div>
 
-						<div class="md:col-span-8 bg-[#f4fafd] rounded-xl p-6 border border-[#c1c8c2] shadow-ambient hover:border-[#a5d0b9] transition-all flex flex-col sm:flex-row gap-6 items-center">
-							<div class="w-full sm:w-1/3 h-32 bg-[#e8eff1] rounded-lg flex items-center justify-center">
-								<span class="material-symbols-outlined text-4xl text-[#012d1d]/40">grid_off</span>
+						<div class="md:col-span-8 bg-[#f4fafd] dark:bg-[#0e2019] rounded-xl p-6 border border-[#c1c8c2] dark:border-[#1b3b2f] shadow-ambient hover:border-[#a5d0b9] dark:hover:border-[#34d399] transition-all flex flex-col sm:flex-row gap-6 items-center">
+							<div class="w-full sm:w-1/3 h-32 bg-[#e8eff1] dark:bg-[#162f25] rounded-lg flex items-center justify-center">
+								<span class="material-symbols-outlined text-4xl text-[#012d1d]/40 dark:text-[#34d399]/60">grid_off</span>
 							</div>
 							<div class="w-full sm:w-2/3">
-								<h3 class="text-xl font-bold text-[#161d1f] font-display mb-2">Empty Row & Column Purging</h3>
-								<p class="text-sm text-[#414844] leading-relaxed">
+								<h3 class="text-xl font-bold text-[#161d1f] dark:text-[#f0fdf4] font-display mb-2">Empty Row & Column Purging</h3>
+								<p class="text-sm text-[#414844] dark:text-[#94a3b8] leading-relaxed">
 									Instantly prune dead space from your spreadsheet. Safely delete completely blank rows or columns that bloat file size.
 								</p>
 							</div>
@@ -110,32 +111,32 @@ import Navbar from '../components/Navbar.astro';
 
 				<!-- Group 3: UX & Controls -->
 				<div>
-					<div class="mb-8 border-b border-[#c1c8c2] pb-2 inline-block">
-						<h2 class="text-2xl font-bold text-[#012d1d] font-display flex items-center gap-2">
-							<span class="material-symbols-outlined text-[#1b4332]" style="font-variation-settings: 'FILL' 1;">magic_button</span>
+					<div class="mb-8 border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-2 inline-block">
+						<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display flex items-center gap-2">
+							<span class="material-symbols-outlined text-[#1b4332] dark:text-[#34d399]" style="font-variation-settings: 'FILL' 1;">magic_button</span>
 							User Experience
 						</h2>
 					</div>
 					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-						<div class="bg-[#f4fafd] rounded-xl p-5 border border-[#c1c8c2]">
-							<span class="material-symbols-outlined text-3xl text-[#012d1d] mb-2">compare</span>
-							<h4 class="text-base font-bold text-[#161d1f] mb-1">Live Preview Toggle</h4>
-							<p class="text-xs text-[#414844]">Switch between Original and Preview Fixes modes in real time.</p>
+						<div class="bg-[#f4fafd] dark:bg-[#0e2019] rounded-xl p-5 border border-[#c1c8c2] dark:border-[#1b3b2f]">
+							<span class="material-symbols-outlined text-3xl text-[#012d1d] dark:text-[#34d399] mb-2">compare</span>
+							<h4 class="text-base font-bold text-[#161d1f] dark:text-[#f0fdf4] mb-1">Live Preview Toggle</h4>
+							<p class="text-xs text-[#414844] dark:text-[#94a3b8]">Switch between Original and Preview Fixes modes in real time.</p>
 						</div>
-						<div class="bg-[#f4fafd] rounded-xl p-5 border border-[#c1c8c2]">
-							<span class="material-symbols-outlined text-3xl text-[#012d1d] mb-2">text_format</span>
-							<h4 class="text-base font-bold text-[#161d1f] mb-1">Header Formatting</h4>
-							<p class="text-xs text-[#414844]">Clean up column names for database compatibility.</p>
+						<div class="bg-[#f4fafd] dark:bg-[#0e2019] rounded-xl p-5 border border-[#c1c8c2] dark:border-[#1b3b2f]">
+							<span class="material-symbols-outlined text-3xl text-[#012d1d] dark:text-[#34d399] mb-2">text_format</span>
+							<h4 class="text-base font-bold text-[#161d1f] dark:text-[#f0fdf4] mb-1">Header Formatting</h4>
+							<p class="text-xs text-[#414844] dark:text-[#94a3b8]">Clean up column names for database compatibility.</p>
 						</div>
-						<div class="bg-[#f4fafd] rounded-xl p-5 border border-[#c1c8c2]">
-							<span class="material-symbols-outlined text-3xl text-[#012d1d] mb-2">shield_lock</span>
-							<h4 class="text-base font-bold text-[#161d1f] mb-1">100% In-Browser</h4>
-							<p class="text-xs text-[#414844]">Zero server uploads. Complete client-side confidentiality.</p>
+						<div class="bg-[#f4fafd] dark:bg-[#0e2019] rounded-xl p-5 border border-[#c1c8c2] dark:border-[#1b3b2f]">
+							<span class="material-symbols-outlined text-3xl text-[#012d1d] dark:text-[#34d399] mb-2">shield_lock</span>
+							<h4 class="text-base font-bold text-[#161d1f] dark:text-[#f0fdf4] mb-1">100% In-Browser</h4>
+							<p class="text-xs text-[#414844] dark:text-[#94a3b8]">Zero server uploads. Complete client-side confidentiality.</p>
 						</div>
-						<div class="bg-[#f4fafd] rounded-xl p-5 border border-[#c1c8c2]">
-							<span class="material-symbols-outlined text-3xl text-[#012d1d] mb-2">download</span>
-							<h4 class="text-base font-bold text-[#161d1f] mb-1">Instant Export</h4>
-							<p class="text-xs text-[#414844]">Export your cleaned CSV file immediately.</p>
+						<div class="bg-[#f4fafd] dark:bg-[#0e2019] rounded-xl p-5 border border-[#c1c8c2] dark:border-[#1b3b2f]">
+							<span class="material-symbols-outlined text-3xl text-[#012d1d] dark:text-[#34d399] mb-2">download</span>
+							<h4 class="text-base font-bold text-[#161d1f] dark:text-[#f0fdf4] mb-1">Instant Export</h4>
+							<p class="text-xs text-[#414844] dark:text-[#94a3b8]">Export your cleaned CSV file immediately.</p>
 						</div>
 					</div>
 				</div>
@@ -143,30 +144,16 @@ import Navbar from '../components/Navbar.astro';
 		</section>
 
 		<!-- Bottom CTA -->
-		<section class="py-16 px-6 text-center bg-[#e8eff1]">
+		<section class="py-16 px-6 text-center bg-[#e8eff1] dark:bg-[#0a1713] border-t border-[#c1c8c2]/40 dark:border-[#1b3b2f]">
 			<div class="max-w-xl mx-auto">
-				<h2 class="text-3xl font-bold text-[#012d1d] font-display mb-3">Ready to clean your CSV?</h2>
-				<p class="text-sm text-[#414844] mb-6">No registration, no fees, no privacy risks.</p>
-				<a href="/upload" class="inline-block bg-[#012d1d] text-white text-xs font-semibold uppercase tracking-wider px-8 py-4 rounded-lg hover:bg-[#1b4332] shadow-ambient transition-all">
+				<h2 class="text-3xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-3">Ready to clean your CSV?</h2>
+				<p class="text-sm text-[#414844] dark:text-[#94a3b8] mb-6">No registration, no fees, no privacy risks.</p>
+				<a href="/upload" class="inline-block bg-[#012d1d] dark:bg-[#34d399] text-white dark:text-[#002114] text-xs font-semibold uppercase tracking-wider px-8 py-4 rounded-lg hover:bg-[#1b4332] dark:hover:bg-[#2dd4bf] shadow-ambient transition-all cursor-pointer">
 					Start Cleaning Now
 				</a>
 			</div>
 		</section>
 	</main>
 
-	<!-- Footer -->
-	<footer class="w-full py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-white border-t border-[#c1c8c2]">
-		<div class="text-[#012d1d] font-bold font-display text-lg flex items-center gap-2">
-			<span class="material-symbols-outlined filled text-xl">cleaning_services</span>
-			<span>CSV Cleaner</span>
-		</div>
-		<div class="text-xs text-[#414844] text-center">
-			© 2026 CSV Cleaner. Privacy First. Runs locally in your browser.
-		</div>
-		<nav class="flex gap-4 text-xs font-semibold uppercase tracking-wider text-[#414844]">
-			<a href="/features" class="hover:text-[#012d1d] transition-colors">Features</a>
-			<a href="/how-it-works" class="hover:text-[#012d1d] transition-colors">How It Works</a>
-			<a href="/upload" class="hover:text-[#012d1d] transition-colors">Upload</a>
-		</nav>
-	</footer>
+	<Footer />
 </Layout>

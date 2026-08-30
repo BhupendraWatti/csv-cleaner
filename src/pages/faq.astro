@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Frequently Asked Questions — CSV Cleaner" description="Find answers to common questions about preparing, cleaning, and securing your CSV data with our browser-based tool.">
+	<Navbar activePage="faq" />
+
+	<main class="flex-grow pt-28 pb-20 px-4 md:px-8 max-w-[900px] mx-auto w-full">
+		<!-- Hero Section -->
+		<div class="text-center mb-16 mt-6">
+			<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-5xl mb-3" style="font-variation-settings: 'FILL' 1;">help</span>
+			<h1 class="text-4xl md:text-5xl font-extrabold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-4">Frequently Asked Questions</h1>
+			<p class="text-lg text-[#414844] dark:text-[#94a3b8] max-w-2xl mx-auto">
+				Everything you need to know about preparing, cleaning, and securing your CSV data with our browser-based tool.
+			</p>
+		</div>
+
+		<!-- Accordion Layout -->
+		<div class="space-y-8">
+			<!-- Category: General -->
+			<section class="bg-white dark:bg-[#0e2019] rounded-2xl border border-[#c1c8c2] dark:border-[#1b3b2f] p-6 md:p-8 shadow-sm relative overflow-hidden">
+				<div class="absolute top-0 left-0 w-full h-1 bg-[#3f6653] dark:bg-[#34d399] opacity-20"></div>
+				<div class="flex items-center gap-3 mb-6">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-2xl" style="font-variation-settings: 'FILL' 1;">info</span>
+					<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">General</h2>
+				</div>
+				<div class="space-y-4">
+					<div class="border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-4">
+						<button class="w-full flex justify-between items-center text-left py-2 group focus:outline-none accordion-toggle cursor-pointer">
+							<span class="text-lg font-medium text-[#161d1f] dark:text-[#f0fdf4] group-hover:text-[#012d1d] dark:group-hover:text-[#34d399] transition-colors">Is CSV Cleaner completely free to use?</span>
+							<span class="material-symbols-outlined text-[#414844] dark:text-[#94a3b8] transition-transform duration-300 icon-arrow">expand_more</span>
+						</button>
+						<div class="accordion-body hidden mt-2">
+							<p class="text-[#414844] dark:text-[#94a3b8] text-base leading-relaxed">Yes, all core cleaning features are entirely free. We process everything locally in your browser, keeping server costs low and allowing us to offer the basic toolset without charge.</p>
+						</div>
+					</div>
+
+					<div class="border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-4">
+						<button class="w-full flex justify-between items-center text-left py-2 group focus:outline-none accordion-toggle cursor-pointer">
+							<span class="text-lg font-medium text-[#161d1f] dark:text-[#f0fdf4] group-hover:text-[#012d1d] dark:group-hover:text-[#34d399] transition-colors">What is the maximum file size supported?</span>
+							<span class="material-symbols-outlined text-[#414844] dark:text-[#94a3b8] transition-transform duration-300 icon-arrow">expand_more</span>
+						</button>
+						<div class="accordion-body hidden mt-2">
+							<p class="text-[#414844] dark:text-[#94a3b8] text-base leading-relaxed">Because processing happens directly in your browser, the file limit depends on your device's RAM. Generally, files up to 100MB (roughly 1,000,000 rows depending on column count) work smoothly on modern laptops.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Category: Privacy & Security -->
+			<section class="bg-white dark:bg-[#0e2019] rounded-2xl border border-[#c1c8c2] dark:border-[#1b3b2f] p-6 md:p-8 shadow-sm relative overflow-hidden">
+				<div class="absolute top-0 left-0 w-full h-1 bg-[#a5d0b9] dark:bg-[#34d399]"></div>
+				<div class="flex items-center gap-3 mb-6">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-2xl" style="font-variation-settings: 'FILL' 1;">shield</span>
+					<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">Privacy & Security</h2>
+				</div>
+				<div class="space-y-4">
+					<div class="border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-4">
+						<button class="w-full flex justify-between items-center text-left py-2 group focus:outline-none accordion-toggle cursor-pointer">
+							<span class="text-lg font-medium text-[#161d1f] dark:text-[#f0fdf4] group-hover:text-[#012d1d] dark:group-hover:text-[#34d399] transition-colors">Do you store my data on your servers?</span>
+							<span class="material-symbols-outlined text-[#414844] dark:text-[#94a3b8] transition-transform duration-300 icon-arrow">expand_more</span>
+						</button>
+						<div class="accordion-body hidden mt-2">
+							<p class="text-[#414844] dark:text-[#94a3b8] text-base leading-relaxed"><strong>Absolutely not.</strong> All data parsing, cleaning, and exporting happens 100% locally in your web browser. Your files never leave your device, ensuring complete data privacy and GDPR/HIPAA compliance by architecture.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Category: Cleaning Operations -->
+			<section class="bg-white dark:bg-[#0e2019] rounded-2xl border border-[#c1c8c2] dark:border-[#1b3b2f] p-6 md:p-8 shadow-sm relative overflow-hidden">
+				<div class="absolute top-0 left-0 w-full h-1 bg-[#ffdcc4] dark:bg-[#451a03]"></div>
+				<div class="flex items-center gap-3 mb-6">
+					<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-2xl" style="font-variation-settings: 'FILL' 1;">cleaning_services</span>
+					<h2 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display">Cleaning Operations</h2>
+				</div>
+				<div class="space-y-4">
+					<div class="border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-4">
+						<button class="w-full flex justify-between items-center text-left py-2 group focus:outline-none accordion-toggle cursor-pointer">
+							<span class="text-lg font-medium text-[#161d1f] dark:text-[#f0fdf4] group-hover:text-[#012d1d] dark:group-hover:text-[#34d399] transition-colors">How does duplicate removal work?</span>
+							<span class="material-symbols-outlined text-[#414844] dark:text-[#94a3b8] transition-transform duration-300 icon-arrow">expand_more</span>
+						</button>
+						<div class="accordion-body hidden mt-2">
+							<p class="text-[#414844] dark:text-[#94a3b8] text-base leading-relaxed">You can choose to remove exact row duplicates, or identify duplicates based on specific key columns (e.g., Email Address). You can select whether to keep the first occurrence or the last.</p>
+						</div>
+					</div>
+
+					<div class="border-b border-[#c1c8c2] dark:border-[#1b3b2f] pb-4">
+						<button class="w-full flex justify-between items-center text-left py-2 group focus:outline-none accordion-toggle cursor-pointer">
+							<span class="text-lg font-medium text-[#161d1f] dark:text-[#f0fdf4] group-hover:text-[#012d1d] dark:group-hover:text-[#34d399] transition-colors">Does it handle commas inside quoted text correctly?</span>
+							<span class="material-symbols-outlined text-[#414844] dark:text-[#94a3b8] transition-transform duration-300 icon-arrow">expand_more</span>
+						</button>
+						<div class="accordion-body hidden mt-2">
+							<p class="text-[#414844] dark:text-[#94a3b8] text-base leading-relaxed">Yes. Our parser strictly follows RFC 4180 standards. If a field contains a comma inside double quotes (e.g., <code class="font-mono bg-[#e8eff1] dark:bg-[#162f25] px-1.5 py-0.5 rounded text-sm text-[#012d1d] dark:text-[#34d399]">"Smith, John"</code>), it is correctly preserved as a single field.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<!-- Support Callout -->
+		<div class="mt-16 bg-[#e8eff1] dark:bg-[#0a1713] p-8 rounded-2xl text-center border border-[#c1c8c2] dark:border-[#1b3b2f]">
+			<h3 class="text-2xl font-bold text-[#012d1d] dark:text-[#f0fdf4] font-display mb-2">Still have questions?</h3>
+			<p class="text-[#414844] dark:text-[#94a3b8] text-base mb-6">We're here to help you get your data perfectly clean.</p>
+			<a href="/contact" class="inline-flex items-center gap-2 bg-[#012d1d] dark:bg-[#34d399] text-white dark:text-[#002114] font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded-full hover:bg-[#1b4332] dark:hover:bg-[#2dd4bf] transition-colors shadow-sm">
+				<span class="material-symbols-outlined text-base">mail</span>
+				Contact Support
+			</a>
+		</div>
+	</main>
+
+	<Footer />
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const toggles = document.querySelectorAll('.accordion-toggle');
+			toggles.forEach(toggle => {
+				toggle.addEventListener('click', () => {
+					const body = toggle.nextElementSibling;
+					const arrow = toggle.querySelector('.icon-arrow');
+					if (body) {
+						const isHidden = body.classList.contains('hidden');
+						body.classList.toggle('hidden', !isHidden);
+						if (arrow) {
+							arrow.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+						}
+					}
+				});
+			});
+		});
+	</script>
+</Layout>

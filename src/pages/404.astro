@@ -1,31 +1,84 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="404 — Page Not Found | CSV Cleaner">
+<Layout title="404 — Looks like this CSV row went missing | CSV Cleaner">
 	<Navbar showHealthBadge={false} />
 
-	<main class="flex-grow pt-28 bg-[#f4fafd] min-h-screen flex items-center justify-center px-6">
-		<div class="max-w-md w-full text-center bg-white rounded-2xl p-8 border border-[#c1c8c2] shadow-ambient flex flex-col gap-4">
-			<div class="size-16 rounded-full bg-[#ffdad6] text-[#ba1a1a] mx-auto flex items-center justify-center">
-				<span class="material-symbols-outlined text-4xl">search_off</span>
+	<main class="flex-grow pt-28 pb-20 px-6 flex items-center justify-center relative overflow-hidden min-h-[80vh]">
+		<!-- Background Radial Gradient -->
+		<div class="absolute inset-0 pointer-events-none opacity-20 dark:opacity-10 bg-[radial-gradient(circle_at_50%_50%,#a5d0b9_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_50%_50%,#34d399_0%,transparent_60%)]"></div>
+
+		<div class="z-10 max-w-4xl w-full mx-auto flex flex-col lg:flex-row items-center gap-12">
+			<!-- Interactive CSV Table Visual -->
+			<div class="w-full lg:w-1/2 flex justify-center">
+				<div class="bg-white dark:bg-[#0e2019] rounded-2xl shadow-md border border-[#c1c8c2] dark:border-[#1b3b2f] p-6 w-full max-w-[340px] transform -rotate-2 hover:rotate-0 transition-transform duration-500 ease-out relative">
+					<div class="flex flex-col gap-3 font-mono text-xs">
+						<!-- Header Row -->
+						<div class="flex gap-2 pb-2 border-b border-[#c1c8c2] dark:border-[#1b3b2f] font-semibold text-[#57615c] dark:text-[#94a3b8] uppercase text-[11px]">
+							<div class="w-1/3">ID</div>
+							<div class="w-1/3">Name</div>
+							<div class="w-1/3">Status</div>
+						</div>
+						<!-- Row 1 -->
+						<div class="flex gap-2 items-center py-1 text-[#161d1f] dark:text-[#f0fdf4]">
+							<div class="w-1/3 text-[#57615c] dark:text-[#94a3b8]">001</div>
+							<div class="w-1/3 truncate">Dataset_A</div>
+							<div class="w-1/3">
+								<span class="bg-[#c1ecd4] dark:bg-[#104430] text-[#002114] dark:text-[#34d399] px-2 py-0.5 rounded-full text-[10px] font-bold">Clean</span>
+							</div>
+						</div>
+						<!-- Row 2 (Missing Row with Pulse) -->
+						<div class="flex gap-2 items-center py-1.5 border-y border-dashed border-[#ba1a1a]/40 dark:border-red-500/40 bg-[#ffdad6]/20 dark:bg-red-950/30 rounded-md relative -mx-1 px-2">
+							<div class="w-1/3 text-[#ba1a1a] dark:text-red-400">002</div>
+							<div class="w-1/3">
+								<div class="h-4 w-16 bg-[#c1c8c2]/40 dark:bg-[#1b3b2f] rounded animate-pulse"></div>
+							</div>
+							<div class="w-1/3 flex justify-center text-[#ba1a1a] dark:text-red-400">
+								<span class="material-symbols-outlined text-base">question_mark</span>
+							</div>
+							<!-- Search Icon Floating -->
+							<div class="absolute -right-3 -top-3 bg-white dark:bg-[#0a1713] rounded-full p-1.5 shadow-md border border-[#c1c8c2] dark:border-[#1b3b2f] flex items-center justify-center animate-bounce">
+								<span class="material-symbols-outlined text-[#012d1d] dark:text-[#34d399] text-base" style="font-variation-settings: 'FILL' 1;">search</span>
+							</div>
+						</div>
+						<!-- Row 3 -->
+						<div class="flex gap-2 items-center py-1 text-[#161d1f] dark:text-[#f0fdf4]">
+							<div class="w-1/3 text-[#57615c] dark:text-[#94a3b8]">003</div>
+							<div class="w-1/3 truncate">Logs_Q4</div>
+							<div class="w-1/3">
+								<span class="bg-[#e8eff1] dark:bg-[#162f25] text-[#57615c] dark:text-[#94a3b8] px-2 py-0.5 rounded-full text-[10px] font-bold">Raw</span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
-			<h1 class="text-3xl font-extrabold text-[#161d1f] font-display">404 — Page Not Found</h1>
-			<p class="text-sm text-[#414844]">
-				The page or route you are looking for does not exist or has been moved.
-			</p>
+			<!-- Text Content & Actions -->
+			<div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left gap-4">
+				<span class="text-xs font-bold uppercase tracking-widest text-[#012d1d] dark:text-[#34d399]">Error 404</span>
+				<h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#161d1f] dark:text-[#f0fdf4] font-display leading-tight">
+					Looks like this CSV row went missing.
+				</h1>
+				<p class="text-base text-[#414844] dark:text-[#94a3b8] max-w-md">
+					The page you're looking for doesn't exist or has been moved. Let's get your data back on track.
+				</p>
 
-			<div class="pt-4">
-				<a
-					href="/"
-					class="inline-flex items-center gap-2 bg-[#012d1d] text-white text-xs font-semibold uppercase tracking-wider px-6 py-3 rounded-lg hover:bg-[#1b4332] shadow-ambient transition-all"
-				>
-					<span class="material-symbols-outlined text-base">home</span>
-					Return to CSV Cleaner Home
-				</a>
+				<div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto pt-4">
+					<a href="/" class="inline-flex items-center justify-center gap-2 bg-white dark:bg-[#0a1713] border border-[#c1c8c2] dark:border-[#1b3b2f] text-[#161d1f] dark:text-[#f0fdf4] hover:bg-[#e8eff1] dark:hover:bg-[#162f25] hover:text-[#012d1d] dark:hover:text-[#34d399] transition-colors px-6 py-3 rounded-lg text-sm font-semibold">
+						<span class="material-symbols-outlined text-lg">home</span>
+						Back to Home
+					</a>
+					<a href="/#workspace-container" class="inline-flex items-center justify-center gap-2 bg-[#012d1d] dark:bg-[#34d399] text-white dark:text-[#002114] hover:bg-[#1b4332] dark:hover:bg-[#2dd4bf] transition-colors px-6 py-3 rounded-lg text-sm font-semibold shadow-xs">
+						<span class="material-symbols-outlined text-lg">cleaning_services</span>
+						Clean a CSV
+					</a>
+				</div>
 			</div>
 		</div>
 	</main>
+
+	<Footer />
 </Layout>
